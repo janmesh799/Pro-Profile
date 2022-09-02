@@ -55,8 +55,14 @@ const ExperienceSchema = new Schema({
   role: {
     type: String,
   },
+  description: {
+    type: String,
+  },
 });
 const SocialSchema = new Schema({
+  platform: {
+    type: String,
+  },
   username: {
     type: String,
   },
@@ -71,7 +77,7 @@ const AchievementSchema = new Schema({
     type: String,
   },
 });
-const PortfolioSchema = new Schema({
+const ProfileSchema = new Schema({
   username: {
     type: String,
     require: true,
@@ -87,5 +93,5 @@ const PortfolioSchema = new Schema({
   Achievements: [AchievementSchema],
 });
 
-const Portfolio = mongoose.model("portfolio", PortfolioSchema);
-module.exports = Portfolio;
+const profile = mongoose.model("profile", ProfileSchema);
+module.exports = profile;
