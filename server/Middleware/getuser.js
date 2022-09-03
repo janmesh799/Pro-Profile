@@ -18,16 +18,16 @@ const getuser = (req, res, next) => {
     } catch (error) {
       //if authToken is not valid or some error occurs then, sending authentcation error message and 401 status code
       res
-        .json({ message: "please authenticate using a valid credentials" })
-        .status(401);
+        .status(401)
+        .json({ message: "please authenticate using a valid credentials" });
     }
   }
 
   //if authToken is not present in the header, then sending authentication error message and 401 status code
   else {
     res
-      .json({ message: "please authenticate using a valid credentials" })
-      .status(401);
+      .status(401)
+      .json({ message: "please authenticate using a valid credentials" });
   }
 };
 

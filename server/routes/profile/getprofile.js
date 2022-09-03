@@ -9,10 +9,10 @@ const getprofile = async (req, res) => {
 
   //if user is not found, then sending response as  success = false, error message and status code as 404
   if (!user) {
-    res.json({ success: false, message: "username not found" }).status(404);
+    res.status(404).json({ success: false, message: "username not found" });
   }
 
-  //if user is found, sending response as success = false, and user details
+  //if user is found, sending response as success = true, and user details
   else {
     res.json({ success: true, user });
   }
