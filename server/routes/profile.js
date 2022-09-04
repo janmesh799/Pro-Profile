@@ -9,9 +9,10 @@ const editProfile = require("./profile/editProfile");
 //              if user is not logged in, then it will not allow user to create profile
 router.post("/", getuser, addProfile);
 
-//ENDPOINT #2:finds and return user with the given username only if user is logged in, otherwise gives authetication errror
-router.get("/", getuser, getprofile);
+//ENDPOINT #2:finds and return user with the given username
+router.get("/", getprofile);
 
-//ENDPOINT #3:
+//ENDPOINT #3:edits the profile of the user
 router.put("/", getuser, editProfile);
+
 module.exports = router;
