@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Button, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  const [user, setuser] = useState("");
+  const state = useSelector((state) => state);
   const [ifLoggedIn, setifLoggedIn] = useState(false);
   const getcreds = () => {
     if (localStorage.getItem("AuthToken")) setifLoggedIn(true);
-    setuser("logged in");
   };
   const handleLogout = () => {
     localStorage.removeItem("AuthToken");
@@ -61,7 +61,7 @@ const Navbar = () => {
                 {" "}
                 <Link
                   style={{ textDecoration: "none", color: "white" }}
-                  to="/login"
+                  to="/signup"
                 >
                   Signup
                 </Link>
@@ -79,9 +79,9 @@ const Navbar = () => {
                 {" "}
                 <Link
                   style={{ textDecoration: "none", color: "white" }}
-                  to="/login"
+                  to="/editprofile"
                 >
-                  {user}
+                  {state.user.name}
                 </Link>
               </Typography>
             </Button>

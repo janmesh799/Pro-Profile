@@ -88,9 +88,9 @@ const ProfileSchema = new Schema({
   },
   education: [educationSchema],
   projects: [projectSchema],
-  Experience: [ExperienceSchema],
-  Social: [SocialSchema],
-  Achievements: [AchievementSchema],
+  experience: [ExperienceSchema],
+  social: [SocialSchema],
+  achievements: [AchievementSchema],
 });
 
 const profile = mongoose.model("profile", ProfileSchema);
