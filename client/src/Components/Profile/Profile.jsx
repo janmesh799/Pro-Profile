@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Container } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
@@ -9,7 +11,13 @@ import Education from "./Education";
 import Project from "./Project";
 import Experience from "./Experience";
 import Achievement from "./Achievement";
+import { profileAction } from "../../redux/actions/profileActions";
+import NotFound404 from "../NotFound404/NotFound404";
+
 const Profile = () => {
+  const state = useSelector((state) => state);
+  const location = useLocation();
+  const dispatch = useDispatch();
   const [page, setpage] = useState("education");
   const buttons = [
     [1, <SchoolIcon />, "Education", "education"],
@@ -17,6 +25,15 @@ const Profile = () => {
     [3, <EngineeringIcon />, "Experience", "experience"],
     [4, <EmojiEventsIcon />, "Achievements", "achievements"],
   ];
+  function fetchProfile() {
+    const username = location.search.substring(1);
+    console.log("usrname = ", username);
+    dispatch(profileAction(username));
+  }
+  useEffect(() => {
+    fetchProfile();
+    // eslint-disable-next-line
+  }, [location]);
 
   return (
     <div>
@@ -52,18 +69,22 @@ const Profile = () => {
         })}
       </Container>
       {(() => {
-        switch (page) {
-          case "education":
-            return <Education />;
+        if (state.profile.errorMessage === "404 Not found") {
+          return <NotFound404 />;
+        } else {
+          switch (page) {
+            case "education":
+              return <Education />;
 
-          case "projects":
-            return <Project />;
-          case "experience":
-            return <Experience />;
-          case "achievements":
-            return <Achievement />;
-          default:
-            return <Education />;
+            case "projects":
+              return <Project />;
+            case "experience":
+              return <Experience />;
+            case "achievements":
+              return <Achievement />;
+            default:
+              return <Education />;
+          }
         }
       })()}
     </div>

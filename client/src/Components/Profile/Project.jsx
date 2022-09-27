@@ -5,7 +5,7 @@ import { Typography, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 const Project = () => {
   const state = useSelector((state) => state);
-  const projects = state.user.projects;
+  const projects = state.profile.user.user.projects;
   return (
     <Container
       sx={{

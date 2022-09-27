@@ -15,7 +15,7 @@ const Navbar = () => {
   useEffect(() => {
     getcreds();
   }, [ifLoggedIn]);
-
+  console.log("state = ", state);
   return (
     <div
       style={{
@@ -81,7 +81,7 @@ const Navbar = () => {
                   style={{ textDecoration: "none", color: "white" }}
                   to="/editprofile"
                 >
-                  {state.user.name}
+                  {/* {state.profile.user.user.name} */}
                 </Link>
               </Typography>
             </Button>

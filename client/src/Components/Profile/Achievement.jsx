@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import { Typography, Card } from "@mui/material";
 const Achievement = () => {
   const state = useSelector((state) => state);
-  const achievements = state.user.achievements;
+  const achievements = state.profile.user.user.achievements;
   achievements.sort(function (a, b) {
     return a.index >= b.index ? 1 : -1;
   });

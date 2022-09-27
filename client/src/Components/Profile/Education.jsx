@@ -4,12 +4,27 @@ import { Container } from "@mui/system";
 import { Typography, Card } from "@mui/material";
 const Education = () => {
   const state = useSelector((state) => state);
-  const education = state.user.education;
+  const education = state.profile.user.user.education;
   return (
-    <Container sx={{ display: "flex", flexWrap: "wrap",justifyContent:"center",alignContent:"center"  }}>
+    <Container
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+    >
       {education.map((edu) => {
         return (
-          <Card key={edu.from_year} sx = {{margin:"2em",padding:"2em",boxShadow:" 10px 10px 5px #C4C6E2;"}} variant="outlined">
+          <Card
+            key={edu.from_year}
+            sx={{
+              margin: "2em",
+              padding: "2em",
+              boxShadow: " 10px 10px 5px #C4C6E2;",
+            }}
+            variant="outlined"
+          >
             <div style={{ display: "flex", flexDirection: "row" }}>
               <Typography>School/College : </Typography>
               <Typography sx={{ margin: "0em 1em" }}> {edu.college}</Typography>

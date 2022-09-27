@@ -4,7 +4,7 @@ import { Container } from "@mui/system";
 import { Typography, Card } from "@mui/material";
 const Experience = () => {
   const state = useSelector((state) => state);
-  const experience = state.user.experience;
+  const experience = state.profile.user.user.experience;
   return (
     <div>
       <Container sx={{ display: "flex", flexWrap: "wrap",justifyContent:"center",alignContent:"center" }}>
