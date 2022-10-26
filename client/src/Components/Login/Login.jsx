@@ -43,8 +43,8 @@ const Login = () => {
       <Container
         sx={{
           backgroundColor: "whitesmoke",
-          width: "50%",
-          marginTop: "5rem",
+          width: "40%",
+          marginTop: "10rem",
           borderRadius: "5%",
         }}
       >
@@ -56,8 +56,8 @@ const Login = () => {
         </Typography>
         <Container>
           <form onSubmit={handleSubmit}>
-            <Container
-              sx={{
+            <div
+              style={{
                 display: "flex",
                 flexDirection: "column",
               }}
@@ -65,7 +65,7 @@ const Login = () => {
               <TextField
                 onChange={handleChange}
                 value={creds.username}
-                sx={{ margin: "3rem" }}
+                sx={{ margin: "3rem",width:"25rem" , alignSelf:"center"}}
                 id="username"
                 name="username"
                 label="username"
@@ -74,16 +74,16 @@ const Login = () => {
               <TextField
                 onChange={handleChange}
                 value={creds.password}
-                sx={{ margin: "3rem" }}
+                sx={{ margin: "3rem" , width:"25rem", alignSelf:"center"}}
                 id="password"
                 name="password"
                 label="password"
                 variant="filled"
               />
-              <Button sx={{ margin: "2rem" }} type="submit" variant="outlined">
+              <Button sx={{ margin: "2rem", width :"10rem" , alignSelf:"center"}} type="submit" variant="outlined">
                 <Typography>Submit</Typography>
               </Button>
-            </Container>
+            </div>
           </form>
         </Container>
       </Container>

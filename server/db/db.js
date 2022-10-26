@@ -1,6 +1,6 @@
-// const MongoClient = require("mongodb").MongoClient;
+require('dotenv').config()
 const mongoose = require("mongoose");
-const url = "mongodb://localhost:27017/profile_creator";
+const url = process.env.MONGO_URI;
 
 const connectToMongo = () => {
   try {
