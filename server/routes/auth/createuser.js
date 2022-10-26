@@ -1,4 +1,5 @@
 const User = require("../../Models/User.js");
+const {validationResult } = require('express-validator');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -6,6 +7,10 @@ const secKey = "random123";
 const createUser = async (req, res) => {
   try {
     const creds = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
     const { name, username, email, password } = creds; //extracting creds from body
     const UserWithSameUsername = await User.find({ username: email }); //finding any user with same username
     const UserWithSameEmail = await User.find({ email: email }); //finding any user with same email
@@ -18,7 +23,7 @@ const createUser = async (req, res) => {
     //if given user is unique then creating new user
     if (isNew) {
 
-      
+
       //hashing password with user of bcryptjs with salt of 10 characters
       const securedPass = await bcrypt.hash(password, 10);
 
