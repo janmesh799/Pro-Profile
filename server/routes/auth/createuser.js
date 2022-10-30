@@ -12,7 +12,7 @@ const createUser = async (req, res) => {
       return res.status(400).json({ errors: errors.array() })
     }
     const { name, username, email, password } = creds; //extracting creds from body
-    const UserWithSameUsername = await User.find({ username: email }); //finding any user with same username
+    const UserWithSameUsername = await User.find({ username: username }); //finding any user with same username
     const UserWithSameEmail = await User.find({ email: email }); //finding any user with same email
 
     //setting isNew to false if any user if found with same email or username, else it is set to true
