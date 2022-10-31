@@ -1,8 +1,7 @@
 # Profile-Creater
 
-An web-app where you can make an account, post public/private blogs and also explore public blogs written by other users
-
-Hosted Link : https://blogging-ninja.herokuapp.com
+An web-app where you can make your profile to host and show it to other people globally.
+You can mention your Education, Projects, Achievements and you coding profiles on a single platform.
 
 ## Client Side
 
