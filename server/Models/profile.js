@@ -2,95 +2,211 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const educationSchema = new Schema({
-  college: {
+  institute: {
     type: String,
     require: true,
   },
-  degree: {
+  tenure: {
+    start: {
+      type: Date,
+    },
+    end: {
+      type: Date,
+    }
+  },
+  course: {
     type: String,
-  },
-  from_year: {
-    type: Number,
-  },
-  to_year: {
-    type: Number,
+    require: true,
   },
   grade: {
     type: String,
   },
-  desc: {
+  description: {
+    type: String,
+  }
+});
+
+const projectSchema = new Schema({
+  title: {
+    type: String,
+    require: true,
+  },
+  description: {
     type: String,
   },
+  links: {
+    github: {
+      type: String,
+    },
+    live: {
+      type: String,
+    }
+  },
+  technologies: {
+    type: [String],
+  }
 });
-const LinkSchema = new Schema({
-  displayText: {
+
+const achievementSchema = new Schema({
+  index: {
+    type: Number,
+    require: true,
+  },
+  title: {
+    type: String,
+    require: true,
+  },
+  description: {
     type: String,
   },
   link: {
+    text: {
+      type: String,
+    },
+    url: {
+      type: String,
+    }
+  }
+})
+
+const experienceSchema = new Schema({
+  company: {
     type: String,
     require: true,
   },
-});
-const projectSchema = new Schema({
-  name: {
+  tenure: {
+    start: {
+      type: Date,
+    },
+    end: {
+      type: Date,
+    }
+  },
+  position: {
     type: String,
     require: true,
   },
   description: {
     type: String,
-  },
-  links: [LinkSchema],
+  }
 });
-const ExperienceSchema = new Schema({
-  organisation: {
-    type: String,
-    require: true,
-  },
-  from_year: {
-    type: Number,
-  },
-  to_year: {
-    type: Number,
-  },
-  role: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-});
-const SocialSchema = new Schema({
-  platform: {
-    type: String,
-  },
-  username: {
-    type: String,
-  },
-  website: [LinkSchema],
-});
-const AchievementSchema = new Schema({
-  index: {
-    type: Number,
-    default: 0,
-  },
-  description: {
-    type: String,
-  },
-});
+
+
 const ProfileSchema = new Schema({
   username: {
     type: String,
     require: true,
+    unique: true,
+    index: true,
   },
   name: {
     type: String,
     require: true,
   },
-  education: [educationSchema],
-  projects: [projectSchema],
-  experience: [ExperienceSchema],
-  social: [SocialSchema],
-  achievements: [AchievementSchema],
+  email: {
+    type: String,
+    require: true,
+  },
+  bio: {
+    type: String,
+  },
+  profilePic: {
+    type: String,
+  },
+  education: {
+    type: [educationSchema],
+  },
+  project: {
+    type: [projectSchema],
+  },
+  achievement: {
+    type: [achievementSchema],
+  },
+  experience: {
+    type: [experienceSchema],
+  },
+  skills: {
+    type: [String],
+  },
+  socials: {
+    github: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the github profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    linkedin: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the github profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    codechef: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the codechef profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    codeforces: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the codeforces profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    hackerrank: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the hackerrank profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    hackerearth: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the hackerearth profile
+      },
+      url: {
+        type: String,
+      }
+    },
+    geeksforgeeks: {
+      username: {
+        type: String,
+      },
+      description: {
+        type: String, //any description about the geeksforgeeks profile
+      },
+      url: {
+        type: String,
+      }
+    }
+  }
 });
 
 const profile = mongoose.model("profile", ProfileSchema);

@@ -1,14 +1,20 @@
-const express = require("express");
-const connectToMongo = require("./db/db");
-const cors = require("cors");
-const app = express();
-connectToMongo();
-const port = process.env.PORT || 5000;
+require('dotenv').config()
+const { json } = require('express');
+const express = require('express')
+const cors = require('cors');
+const connectToMongo = require('./DataBase/db');
 
+const app = express();
+
+app.use(json());
 app.use(cors());
-app.use(express.json());
-app.use("/api/auth", require("./routes/auth"));
-app.use("/api/profile", require("./routes/profile"));
-app.listen(port, () => {
-  console.log(`application backend is running at http://localhost:${port}`);
-});
+connectToMongo();
+const PORT = process.env.PORT || 5000;
+app.use("/api/auth", require('./Routes/auth.js'));
+
+app.use("/api/profile", require('./Routes/profile.js'));
+
+
+app.listen(PORT, () => {
+    console.log(`Backend is listening on https://localhost:${PORT}`);
+})

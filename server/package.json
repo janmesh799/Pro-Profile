@@ -1,11 +1,11 @@
 {
-  "name": "server",
+  "name": "server2",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +14,11 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-validator": "^6.14.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.5.3"
-  },
-  "devDependencies": {
+    "mongodb": "^4.12.1",
+    "mongoose": "^6.8.0",
     "nodemon": "^2.0.20"
   }
 }
