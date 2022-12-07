@@ -1,38 +1,33 @@
-import { Container } from "@mui/material";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Provider } from "react-redux";
-import store from "./redux/store";
-import Login from "./Components/Login/Login";
-import Navbar from "./Components/Navbar/Navbar";
-import Profile from "./Components/Profile/Profile";
-import Search from "./Components/Search/Search";
-import Signup from "./Components/Signup/Signup";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Home from "./pages/Home.jsx"
+import About from "./pages/About.jsx"
+import Navbar from "./components/Navbar.jsx"
+import Alert from "./components/Alert.jsx"
+import Profile from "./pages/Profile.jsx"
+import Login from "./pages/Login.jsx"
+import Signup from "./pages/Signup.jsx"
+import store from "./store/store.js"
+
 function App() {
+  
   return (
+    <div className="App">
     <Provider store={store}>
-      <div className="App">
-        {/* <Demo/> */}
-        <Container
-          maxWidth="false"
-          sx={{
-            margin: "0",
-            paddingLeft: "0px !important",
-            paddingRight: "0px !important",
-          }}
-        >
-          {/* <Demo/> */}
-          <Router>
-            <Navbar />
-            <Routes>
-              <Route path="/" element={<Search />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/profile" element={<Profile />} />
-            </Routes>
-          </Router>
-        </Container>
-      </div>
-    </Provider>
+      <Router>
+        <Navbar />
+        <Alert  message={""} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+      </Router>
+      </Provider>
+    </div>
   );
 }
 
