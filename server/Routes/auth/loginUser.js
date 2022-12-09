@@ -8,11 +8,11 @@ const loginUser = async (req, res) => {
     try {
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ success: false, message: "Please try to login with correct credentials 1" });
+            return res.json({ success: false, message: "Please try to login with correct credentials" });
         }
         const passwordCompare = await bcrypt.compare(password, user.password);
         if (!passwordCompare) {
-            return res.status(400).json({ success: false, message: "Please try to login with correct credentials 2" });
+            return res.json({ success: false, message: "Please try to login with correct credentials" });
         }
         const data = {
             user: {

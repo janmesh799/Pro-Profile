@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from '@mui/system'
 import { Alert as MuiAlert } from '@mui/material'
-
+import { useSelector } from 'react-redux'
 
 //error - red
 //info - blue
@@ -9,13 +9,14 @@ import { Alert as MuiAlert } from '@mui/material'
 //warning - yellow
 
 
-const Alert = ({ message, severity }) => {
-    const display = message ? "block" : "none"
+const Alert = () => {
+    const { alertMessage, alertSeverity } = useSelector(state => state.user)
+    const display = alertMessage ? "block" : "none"
     return (
-        <div style={{height:"3rem", margin:"1rem"}}>
+        <div style={{ margin: "1rem", position: "absolute", zIndex: 9 }}>
             <Container sx={{ display: `${display}` }} >
-                <MuiAlert severity={severity || 'info'}>
-                    {message}
+                <MuiAlert severity={alertSeverity || 'info'}>
+                    {alertMessage}
                 </MuiAlert>
 
             </Container >

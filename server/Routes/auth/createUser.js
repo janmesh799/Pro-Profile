@@ -37,7 +37,7 @@ const createUser = async (req, res) => {
         });
         await intitalProfile.save();
         const authToken = jwt.sign(data, secKey);
-        res.json({ authToken });
+        res.json({ authToken, user: data.user, success: true, message: "User created successfully" });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");

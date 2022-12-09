@@ -3,7 +3,7 @@ import { Button, Container, Typography } from '@mui/material'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { logout,getUser } from '../controllers/userController'
+import { logout, getUser } from '../controllers/userController'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutHandler = () => {
     dispatch(logout())
-    Window.location.reload();
+    window.location.reload(true);
   }
   useEffect(() => {
 

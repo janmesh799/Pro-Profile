@@ -16,7 +16,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Navbar />
-        <Alert  message={""} />
+        <Alert />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

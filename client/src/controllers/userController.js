@@ -89,3 +89,35 @@ export function logout() {
         }
     }
 }
+
+export function signup({ name, email, password, password2, username }) {
+    return async function (dispatch) {
+        try {
+            const res = await axios.post('http://localhost:5000/api/auth/createUser', { name, email, password, password2, username });
+            console.log(res.data);
+            if (res.data.success) {
+                dispatch(setState({
+                    islogged: true,
+                    name: res.data.user.name,
+                    username: res.data.user.username,
+                    email: res.data.user.email,
+                    alertMessage: res.data.message,
+                    alertSeverity: 'success'
+                }));
+                localStorage.setItem('token', res.data.authToken);
+            }
+            else {
+                dispatch(setState({
+                    islogged: false,
+                    name: '',
+                    username: '',
+                    email: '',
+                    alertMessage: res.data.message,
+                    alertSeverity: 'error'
+                }));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

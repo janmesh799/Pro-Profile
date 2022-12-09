@@ -99,20 +99,38 @@ const ProfileSchema = new Schema({
     unique: true,
     index: true,
   },
-  name: {
-    type: String,
-    require: true,
-  },
   email: {
     type: String,
     require: true,
   },
   bio: {
-    type: String,
+    name: {
+      type: String,
+      require: true,
+    },
+    about: {
+      type: String,
+    },
+    profilePic: {
+      type: String,
+    },
+    contact: {
+      phone: {
+        type: String,
+      },
+      place: {
+        type: String,
+      }
+    },
+    gender: {
+      type: String,
+      require: true,
+    },
+    email: {
+      type: String
+    }
   },
-  profilePic: {
-    type: String,
-  },
+
   education: {
     type: [educationSchema],
   },
