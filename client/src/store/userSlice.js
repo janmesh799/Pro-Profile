@@ -1,6 +1,8 @@
 
 const { createSlice } = require("@reduxjs/toolkit");
 
+const authToken = localStorage.getItem('authToken')
+
 const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -8,18 +10,20 @@ const userSlice = createSlice({
         name: 'name',
         username: 'username',
         email: '',
-        alertMessage: '',
-        alertSeverity: ''
+        authToken: authToken ? authToken : null,
     },
     reducers: {
-        setState: (state, action) => {
-            state.islogged = action.payload.islogged;
-            state.name = action.payload.name;
-            state.username = action.payload.username;
-            state.email = action.payload.email;
-            state.alertMessage = action.payload.alertMessage;
-            state.alertSeverity = action.payload.alertSeverity;
-        },
+
+        reset: (state) => {
+            state.islogged = false
+            state.name = null
+            state.username = null
+            state.email = null
+            state.authToken = null
+        }
+    },
+    extraReducers: {
+
     }
 });
 

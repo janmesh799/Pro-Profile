@@ -30,7 +30,7 @@ const Navbar = () => {
     <Container maxWidth="false" sx={{ display: "flex", alignContent: "center", justifyContent: "space-between" }}>
       <span >
         <Typography variant='h5'>
-          PROFILE-CREATER
+          PR0PROFILE
         </Typography>
       </span>
       <Container sx={{ display: "flex", justifyContent: "flex-end", margin: "0rem 2rem 0rem 0rem" }}>

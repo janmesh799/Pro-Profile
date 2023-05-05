@@ -13,7 +13,9 @@ const PORT = process.env.PORT || 5000;
 app.use("/api/auth", require('./Routes/auth.js'));
 
 app.use("/api/profile", require('./Routes/profile.js'));
-
+app.use("/", (req, res) => {
+    res.json({ success: true })
+})
 
 app.listen(PORT, () => {
     console.log(`Backend is listening on https://localhost:${PORT}`);

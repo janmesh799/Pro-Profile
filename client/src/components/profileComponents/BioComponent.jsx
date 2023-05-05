@@ -19,9 +19,9 @@ const BioComponent = (props) => {
           </div>
         </div>
         <div style={{ justifySelf: "flex-end", backgroundColor: "rgba(150, 200, 249, 0.37)", width: "20vw", padding: "1em" }}>
-          <Typography sx={{ textAlign: "center" }} variant="h5" > My contact Details </Typography>
+          <Typography sx={{ textAlign: "center" }} variant="h5" > <u> My contact Details </u></Typography>
           <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", margin: "1rem" }}>
-            <Typography sx={{ textAlign: "center", fontWeight: "800", fontSize: "1.3rem" }} variant="body1">
+            <Typography sx={{ textAlign: "left", fontWeight: "800", fontSize: "1.1rem" }} variant="body1">
               Email: <a href={`mailto:${bio.email}`}> {bio.email}</a>
             </Typography>
             <Typography sx={{ textAlign: "center", fontWeight: "800", fontSize: "1.3rem" }} variant="body1">

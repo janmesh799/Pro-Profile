@@ -37,12 +37,21 @@ const Login = () => {
 
 
     return (
-        <Container sx={{ display: "flex", justifyContent: "center", marginTop: "8vw" }}>
-            <FormControl>
+        <Container sx={{ display: "flex", justifyContent: "space-between", marginTop: "8vw" }}>
+            <Container maxWidth="md" sx={{ margin: '0rem' }}>
+                <Typography variant='h1'>
+                    Welcome Back
+                    { // Log in to show the world who you are.
+                    }
+                </Typography>
+                <Typography variant='h3'>
+                    <u>Resume</u> your journey</Typography>
+            </Container>
+            <FormControl sx={{ backgroundColor: "" }}>
                 <TextField onChange={handleChange} name="email" value={creds.email} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='email' margin='dense' label='Email Address' />
                 <TextField onChange={handleChange} name="password" value={creds.password} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='password' margin='dense' label='Password' />
                 <Button onClick={handleSubmit} sx={{ marginTop: "2rem", fontSize: "1.25rem" }} variant='contained'>Submit</Button>
-                <Typography variant="caption" sx={{ fontSize: "1.5rem", margin: "2rem 0rem" }}>Don't have an account? <Link to='/signup'>Sign Up</Link></Typography>
+                <Typography variant="caption" sx={{ fontSize: "1.5rem", margin: "2rem 0rem" }}>Don't have an account? <Link to='/signup'>Create Account</Link></Typography>
             </FormControl>
         </Container >
     )
