@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-const API_URL = 'http://localhost:5000/api/profile/'
-// const API_URL = 'https://upasthit-backend.vercel.app/api/'
+// const API_URL = 'http://localhost:5000/api/profile/'
+const API_URL = 'https://pro-profile.vercel.app/api/'
 
 //get profile by username
 const getProfile = async (username) => {
