@@ -7,11 +7,48 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setPage } from '../store/application/applicationSlice'
+import { setErrorNull, signup } from '../store/auth/authSlice'
+import { toast } from 'react-toastify'
+function isStrongPassword(password) {
+    // Regular expressions to check for different criteria
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const digitRegex = /[0-9]/;
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+    // Check for length (at least 8 characters)
+    if (password.length < 8) {
+        return false;
+    }
+
+    // Check for uppercase letters
+    if (!uppercaseRegex.test(password)) {
+        return false;
+    }
+
+    // Check for lowercase letters
+    if (!lowercaseRegex.test(password)) {
+        return false;
+    }
+
+    // Check for digits
+    if (!digitRegex.test(password)) {
+        return false;
+    }
+
+    // Check for special characters
+    if (!specialCharRegex.test(password)) {
+        return false;
+    }
+
+    // All criteria passed, the password is strong
+    return true;
+}
 
 const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { islogged } = useSelector(state => state.auth);
+    const { isLoggedIn, authToken, isError, errorMessage } = useSelector(state => state.auth);
     const [creds, setCreds] = useState({
         name: "",
         email: "",
@@ -27,17 +64,29 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(creds)
-        if (creds.password === creds.password2) {
+        const validPass = isStrongPassword(creds.password);
+        if (validPass === false) {
+            toast.warn("Please enter strong password");
+        }
+        else if (creds.password === creds.password2) {
             const { name, email, password, username } = creds;
-            // dispatch(signup({ name, email, password, username }));
+            dispatch(signup({ name, email, password, username }));
+        }
+        else {
+            toast.warn("Password and confirm password should be same")
         }
     }
     useEffect(() => {
         dispatch(setPage('signup'))
-        if(islogged) {
+        if (isLoggedIn || authToken) {
             navigate("/")
         }
-    }, [])
+        if (isError) {
+            toast.error(errorMessage);
+            dispatch(setErrorNull());
+        }
+
+    }, [dispatch, navigate, isLoggedIn, isError, errorMessage])
 
     return (
         //name,email,password, password2 ,username
@@ -52,7 +101,7 @@ const Signup = () => {
                     <Button onClick={handleSubmit} sx={{ width: "20vw", marginTop: "2rem", fontSize: "1.25rem" }} variant='contained'>Submit</Button>
                     <Typography variant="caption" sx={{ fontSize: "1.2rem", margin: "2rem 0rem", width: "20vw" }}>Already have an account? <Link to='/login'>Log in</Link></Typography>
                 </FormControl>
-                <Container maxWidth="mx" sx={{ margin: '0rem 0rem 0rem 30%', width:"70vw" }}>
+                <Container maxWidth="mx" sx={{ margin: '0rem 0rem 0rem 30%', width: "70vw" }}>
                     <Typography variant='h1'>
                         Sign Up and Shine!
                         { // Log in to show the world who you are.

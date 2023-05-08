@@ -1,4 +1,5 @@
 import { FormControl, TextField, Button, Typography } from '@mui/material'
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -7,7 +8,7 @@ import { Container } from '@mui/system'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setPage } from '../store/application/applicationSlice'
-import { login } from '../store/auth/authSlice'
+import { login, setErrorNull } from '../store/auth/authSlice'
 
 
 
@@ -15,7 +16,7 @@ import { login } from '../store/auth/authSlice'
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { islogged, authToken } = useSelector(state => state.auth);
+    const { islogged, authToken, isError, errorMessage } = useSelector(state => state.auth);
 
 
     const [creds, setCreds] = useState({
@@ -37,8 +38,12 @@ const Login = () => {
         if (islogged || authToken) {
             navigate('/')
         }
+        if (isError) {
+            toast.error(errorMessage);
+            dispatch(setErrorNull());
+        }
 
-    }, [dispatch, islogged, authToken, navigate])
+    }, [dispatch, islogged, authToken, navigate, isError, errorMessage])
 
 
     return (

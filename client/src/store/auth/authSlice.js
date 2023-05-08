@@ -7,6 +7,8 @@ const initialState = {
     isLoading: false,
     user: null,
     authToken: authToken ? authToken : null,
+    isError: false,
+    errorMessage: null
 };
 
 export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
@@ -66,6 +68,10 @@ const authSlice = createSlice({
             state.user = null;
             state.authToken = null;
             localStorage.removeItem('authToken')
+        },
+        setErrorNull: (state) => {
+            state.isError = false;
+            state.errorMessage = null;
         }
     },
     extraReducers: (builder) => {
@@ -82,11 +88,13 @@ const authSlice = createSlice({
                     localStorage.setItem('authToken', state.authToken)
                 }
             })
-            .addCase(login.rejected, (state) => {
+            .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isLoggedIn = false;
                 state.authToken = null;
                 state.user = null;
+                state.isError = true;
+                state.errorMessage = "Please enter correct credentials";
             })
             .addCase(signup.pending, (state) => {
                 state.isLoading = true;
@@ -100,6 +108,15 @@ const authSlice = createSlice({
                     localStorage.setItem('authToken', state.authToken)
                 }
             })
+            .addCase(signup.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isLoggedIn = false;
+                state.authToken = null;
+                state.user = null;
+                state.isError = true;
+                state.errorMessage = "Signup failed, try again after some time.";
+
+            })
             .addCase(getUser.pending, (state) => {
                 state.isLoggedIn = false;
             })
@@ -108,15 +125,17 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.user = action.payload.user.user;
             })
-            .addCase(getUser.rejected, (state) => {
+            .addCase(getUser.rejected, (state, action) => {
                 state.isLoggedIn = false;
                 state.isLoading = false;
                 state.authToken = null;
                 state.user = null;
+                state.isError = true;
+                state.errorMessage = action.payload;
                 localStorage.removeItem('authToken')
             })
     }
 });
 
-export const { reset, logout } = authSlice.actions;
+export const { reset, logout, setErrorNull } = authSlice.actions;
 export default authSlice.reducer;
