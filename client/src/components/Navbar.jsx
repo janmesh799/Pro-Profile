@@ -37,7 +37,7 @@ const Navbar = () => {
           </Link>
           {
             isLoggedIn ? <>
-              <Link className={page === "" ? `active-nav-link` : `nav-link`} to={`/profile/${username}`}>
+              <Link className={page === "" ? `active-nav-link` : `nav-link`} to={`/profile`}>
                 <button>{username.toUpperCase()}</button>
               </Link>
               <Link onClick={logoutHandler} className={page === "" ? `active-nav-link` : `nav-link`} to='/' >

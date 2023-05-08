@@ -18,7 +18,7 @@ const fetchUser = async (req, res, next) => {
         }
         const userId = data.user.id;
         const user = await User.findById(userId)
-        console.log(user);
+        // console.log(user);
         if (user) {
             req.user = data;
             next();

@@ -13,7 +13,7 @@ const getProfile = async (req, res) => {
         }
         res.status(200).json({ profile, success: true });
     } catch (error) {
-        return res.status(errorCode || 500).json({ success: false, message: "Internal server Error", error: err.message })
+        return res.status(errorCode || 500).json({ success: false, message: "Internal server Error", error: error.message })
 
     }
 }
