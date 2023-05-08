@@ -17,8 +17,8 @@ const fetchUser = async (req, res, next) => {
             throw new Error("authentication failed");
         }
         const userId = data.user.id;
-        // console.log(data);
         const user = await User.findById(userId)
+        console.log(user);
         if (user) {
             req.user = data;
             next();

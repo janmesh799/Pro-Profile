@@ -5,7 +5,9 @@ const updateProfile = async (req, res) => {
     let errorCode = null;
     try {
         const { bio, profilePic, education, project, achievement, experience, skills, socials } = req.body;
-        const { username, name, email } = req.user;
+        let { username, name, email } = req.user;
+        username = username.toLowerCase();
+        email = email.toLowerCase();
         const oldProfile = await Profile.findOne({ username: username });
         if (!oldProfile) {
             res.status(400).send("No profile found");
