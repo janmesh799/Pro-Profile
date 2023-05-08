@@ -12,7 +12,7 @@ const signup = async (userData) => {
                 "Content-Type": "application/json"
             }
         }
-        const response = await axios.post(API_URL + "teacher/createTeacher", userData, config);
+        const response = await axios.post(API_URL + "/createuser", userData, config);
         // console.log(response)
         return response.data
     } catch (err) {
