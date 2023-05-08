@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-// const API_URL = 'http://localhost:5000/api/auth/'
+// const API_URL = 'http://localhost:5000/api/auth'
 const API_URL = 'https://pro-profile.vercel.app/api/auth'
 
 //register user
@@ -46,7 +46,9 @@ const getUser = async (authToken) => {
             }
         }
         // console.log(config)
-        const response = await axios.get(API_URL + 'getuser', config);
+
+        const response = await axios.get(API_URL + '/getuser', config);
+        console.log("response.data = ", response.data)
         return response.data;
 
     } catch (err) {

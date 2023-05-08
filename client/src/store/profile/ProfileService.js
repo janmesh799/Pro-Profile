@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 
-// const API_URL = 'http://localhost:5000/api/profile/'
-const API_URL = 'https://pro-profile.vercel.app/api/'
+// const API_URL = 'http://localhost:5000/api/profile'
+const API_URL = 'https://pro-profile.vercel.app/api/profile'
 
 //get profile by username
 const getProfile = async (username) => {
@@ -13,7 +13,7 @@ const getProfile = async (username) => {
                 "username": username
             }
         }
-        const response = await axios.get(API_URL + "getprofile/", config);
+        const response = await axios.get(API_URL + "/getprofile", config);
         return response.data;
 
     } catch (err) {

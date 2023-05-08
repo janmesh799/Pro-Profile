@@ -14,7 +14,9 @@ const Home = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         if (authToken) {
+            console.log("dispatched getuser")
             dispatch(getUser(authToken));
+            console.log("finished")
         }
         dispatch(setPage('home'));
         dispatch(getProfile(username));
