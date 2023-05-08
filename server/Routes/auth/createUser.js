@@ -24,10 +24,10 @@ const createUser = async (req, res) => {
         await newUser.save().then((newUser) => {
             const data = {
                 user: {
-                    id: user.id,
-                    username: user.username,
-                    email: user.email,
-                    name: user.name
+                    id: newUser.id,
+                    username: newUser.username,
+                    email: newUser.email,
+                    name: newUser.name
                 }
             }
             const authToken = jwt.sign(data, secKey);
