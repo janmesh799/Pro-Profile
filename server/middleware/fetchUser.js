@@ -1,22 +1,38 @@
 
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const User = require('../Models/User');
 const secretKey = process.env.SECKEY;
 
-const fetchUser = (req, res, next) => {
+const fetchUser = async (req, res, next) => {
+    let errorCode = null;
     try {
         const authToken = req.header("authToken");
         if (!authToken) {
-            return res.status(400).json({ success: false, message: "authentication failed" })
+            errorCode = 400;
+            throw new Error("authentication failed");
         }
         const data = jwt.verify(authToken, secretKey);
         if (!data) {
-            return res.status(400).json({ success: false, message: "authentication failed" })
+            errorCode = 400;
+            throw new Error("authentication failed");
         }
-        req.user = data;
-        next();
+        const userId = data.user.id;
+        // console.log(data);
+        const user = await User.findById(userId)
+        if (user) {
+            req.user = data;
+            next();
+        }
+        else {
+            errorCode = 400;
+            throw new Error("authentication failed");
+        }
+
+
 
     } catch (err) {
-        return res.status(500).json({ success: false, message: "Internal Server Error", error: err.message })
+
+        return res.status(errorCode || 500).json({ success: false, message: "Internal server Error", error: err.message })
     }
 }
 
