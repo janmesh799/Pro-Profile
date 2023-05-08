@@ -1,15 +1,18 @@
 import { Typography } from '@mui/material';
 import { Container } from '@mui/system'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 const BioComponent = (props) => {
-  const { bio, element } = props;
+  const { bio } = useSelector(state => state.profile)
+  const { profilePage } = useSelector(state => state.application)
+
   return (
     <div>
       <Container maxWidth="xl" sx={{ backgroundColor: "none", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
         <div style={{ display: "flex", flexDirection: "row" }}>
           <img
-            style={{ width: "30%", height: "auto", margin: "none", borderRadius: "50%", justifySelf: "flex-start" }} alt= "profile pic"
+            style={{ width: "30%", height: "auto", margin: "none", borderRadius: "50%", justifySelf: "flex-start" }} alt="profile pic"
             src={bio.profilePic ? bio.profilePic : "https://icon2.cleanpng.com/20180319/xrq/kisspng-neck-sitting-line-male-5ab05067ad9d95.1710165615215043597111.jpg"}
           />
           <div style={{ padding: "1rem", marginLeft: "2rem" }}>
@@ -30,12 +33,12 @@ const BioComponent = (props) => {
           </div>
         </div>
       </Container>
-      {element === "PROJECTS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Projects</b></Typography>}
-      {element === "ACHIEVEMENTS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Achievements</b></Typography>}
-      {element === "SKILLS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Skills</b></Typography>}
-      {element === "EDUCATION" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b>Qualifications</b> </Typography>}
-      {element === "EXPERIENCE" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Experiences</b></Typography>}
-      {element === "SOCIALS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Socail Handles </b></Typography>}
+      {profilePage === "PROJECTS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Projects</b></Typography>}
+      {profilePage === "ACHIEVEMENTS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Achievements</b></Typography>}
+      {profilePage === "SKILLS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Skills</b></Typography>}
+      {profilePage === "EDUCATION" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b>Qualifications</b> </Typography>}
+      {profilePage === "EXPERIENCE" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Experiences</b></Typography>}
+      {profilePage === "SOCIALS" && <Typography sx={{ textAlign: "center" }} variant='h4'>These are my <b> Socail Handles </b></Typography>}
     </div>
   )
 }

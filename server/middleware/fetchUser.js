@@ -1,20 +1,22 @@
 
 const jwt = require('jsonwebtoken')
-const secKey = process.env.SECKEY;
+const secretKey = process.env.SECKEY;
 
 const fetchUser = (req, res, next) => {
-    const token = req.header('auth-token');
-    if (!token) {
-        res.status(401).send({ error: "Please authenticate using a valid token" });
-    }
-    else {
-        try {
-            const data = jwt.verify(token, secKey);
-            req.user = data.user;
-            next();
-        } catch (error) {
-            res.status(401).send({ error: "Please authenticate using a valid token" });
+    try {
+        const authToken = req.header("authToken");
+        if (!authToken) {
+            return res.status(400).json({ success: false, message: "authentication failed" })
         }
+        const data = jwt.verify(authToken, secretKey);
+        if (!data) {
+            return res.status(400).json({ success: false, message: "authentication failed" })
+        }
+        req.user = data;
+        next();
+
+    } catch (err) {
+        return res.status(500).json({ success: false, message: "Internal Server Error", error: err.message })
     }
 }
 

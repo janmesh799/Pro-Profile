@@ -3,44 +3,40 @@ const secKey = process.env.SECKEY;
 const bcrypt = require('bcryptjs');
 
 const User = require('../../Models/User');
-const Profile = require('../../Models/profile')
 
 const createUser = async (req, res) => {
-    const { name, email, password, username } = req.body;
+    let errorCode = null;
+    let { name, email, password, username } = req.body;
     try {
-        let user = await User.findOne({
+        email = email.toLowerCase();
+        username = username.toLowerCase();
+
+        const user = await User.findOne({
             $or: [{ email }, { username }]
         });
         if (user) {
-            return res.status(400).json({
-                error: "Sorry this username or email already exists"
-            })
+            errorCode = 400;
+            throw new Error("Sorry! this username or email already exists")
         }
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(password, salt);
-        user = await User.create({
-            name,
-            email,
-            password: secPass,
-            username
-        });
-        const data = {
-            user: {
-                id: user.id,
-                username: user.username,
-                email: user.email,
-                name: user.name
+        const newUser = new User({ name, email, password: secPass, username });
+        await newUser.save().then((newUser) => {
+            const data = {
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    email: user.email,
+                    name: user.name
+                }
             }
-        }
-        const intitalProfile = new Profile({
-            username, name, email
-        });
-        await intitalProfile.save();
-        const authToken = jwt.sign(data, secKey);
-        res.json({ authToken, user: data.user, success: true, message: "User created successfully" });
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
+            const authToken = jwt.sign(data, secKey);
+            res.status(200).json({ success: true, message: "User Created successfully", authToken, newUser });
+        }).catch(err => {
+            throw new Error(err.message);
+        })
+    } catch (err) {
+        return res.status(errorCode || 500).json({ success: false, message: "Internal server Error", error: err.message })
     }
 }
 module.exports = createUser;

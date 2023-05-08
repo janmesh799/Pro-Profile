@@ -104,31 +104,34 @@ const ProfileSchema = new Schema({
     require: true,
   },
   bio: {
-    name: {
-      type: String,
-      require: true,
-    },
-    about: {
-      type: String,
-    },
-    profilePic: {
-      type: String,
-    },
-    contact: {
-      phone: {
+    type: {
+      name: {
+        type: String,
+        require: true,
+      },
+      about: {
         type: String,
       },
-      place: {
+      profilePic: {
         type: String,
+      },
+      contact: {
+        phone: {
+          type: String,
+        },
+        place: {
+          type: String,
+        }
+      },
+      gender: {
+        type: String,
+        require: true,
+      },
+      email: {
+        type: String
       }
     },
-    gender: {
-      type: String,
-      require: true,
-    },
-    email: {
-      type: String
-    }
+    default:{}
   },
 
   education: {

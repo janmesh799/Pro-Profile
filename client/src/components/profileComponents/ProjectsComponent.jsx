@@ -4,12 +4,13 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import { useSelector } from 'react-redux';
 
-const ProjectsComponent = (props) => {
-  const projects = props.projects
+const ProjectsComponent = () => {
+  const {project} =useSelector(state=>state.profile);
   return (
     <div style={{ marginTop: "2rem" }}>
-      {projects.map((proj) => {
+      {project.map((proj) => {
         return (
           <Container style={{ backgroundColor: "#C1D4E3", padding: "1rem", margin: "1rem" }}>
 

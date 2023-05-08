@@ -6,14 +6,17 @@ import { useNavigate } from 'react-router-dom'
 import { Container } from '@mui/system'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { login } from '../controllers/userController'
+import { setPage } from '../store/application/applicationSlice'
+import { login } from '../store/auth/authSlice'
+
 
 
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { islogged } = useSelector(state => state.user);
+    const { islogged, authToken } = useSelector(state => state.auth);
+
 
     const [creds, setCreds] = useState({
         email: "",
@@ -30,10 +33,12 @@ const Login = () => {
 
     }
     useEffect(() => {
-        if (islogged) {
+        dispatch(setPage('login'))
+        if (islogged || authToken) {
             navigate('/')
         }
-    }, [islogged])
+
+    }, [dispatch, islogged, authToken, navigate])
 
 
     return (
@@ -50,8 +55,8 @@ const Login = () => {
             <FormControl sx={{ backgroundColor: "" }}>
                 <TextField onChange={handleChange} name="email" value={creds.email} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='email' margin='dense' label='Email Address' />
                 <TextField onChange={handleChange} name="password" value={creds.password} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='password' margin='dense' label='Password' />
-                <Button onClick={handleSubmit} sx={{ marginTop: "2rem", fontSize: "1.25rem" }} variant='contained'>Submit</Button>
-                <Typography variant="caption" sx={{ fontSize: "1.5rem", margin: "2rem 0rem" }}>Don't have an account? <Link to='/signup'>Create Account</Link></Typography>
+                <Button onClick={handleSubmit} sx={{ marginTop: "2rem", fontSize: "1.25rem", width: "20vw" }} variant='contained'>Submit</Button>
+                <Typography variant="caption" sx={{ fontSize: "1.2rem", margin: "2rem 0rem", width: "20vw" }}>Don't have an account? <Link to='/signup'>Create Account</Link></Typography>
             </FormControl>
         </Container >
     )

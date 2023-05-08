@@ -1,80 +1,65 @@
-import React from 'react'
-import { Button, Container, Typography } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom"
+import './Navbar.css'
+import Logo from "../Logo.png"
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { logout, getUser } from '../controllers/userController'
+// import { logout, getUser } from '../controllers/userController'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
+import { logout } from "../store/auth/authSlice"
 
 
 const Navbar = () => {
-  const { username, islogged } = useSelector(state => state.user);
+  // const page = "home";
+  const { user, isLoggedIn } = useSelector(state => state.auth);
+  let username = null;
+  if (user) username = user.username;
+  const { page } = useSelector(state => state.application)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHandler = () => {
-    dispatch(logout())
-    window.location.reload(true);
+    dispatch(logout());
   }
   useEffect(() => {
 
     if (localStorage.getItem('token')) {
-      dispatch(getUser());
+      // dispatch(getUser());
     }
-  }, [islogged])
+  }, [isLoggedIn])
 
-  // const islogged = false;
-  // const username = "janmesh799"
   return (
-    <Container maxWidth="false" sx={{ display: "flex", alignContent: "center", justifyContent: "space-between" }}>
-      <span >
-        <Typography variant='h5'>
-          PR0PROFILE
-        </Typography>
-      </span>
-      <Container sx={{ display: "flex", justifyContent: "flex-end", margin: "0rem 2rem 0rem 0rem" }}>
-        <Link to='/' >
-          <Button style={{ margin: "0rem 1rem" }}>
-            <Typography sx={{ fontSize: "1.5rem", textDecoration: "none" }} >
-              Home
-            </Typography>
-          </Button>
-        </Link>
-        <Link to='/about' >
-          <Button style={{ margin: "0rem 1rem" }}>
-            <Typography sx={{ fontSize: "1.5rem", textDecoration: "none" }}>
-              About
-            </Typography>
-          </Button>
-        </Link>
-        {islogged ? (<div>
-          <Link to='/profile' >
-            <Button style={{ margin: "0rem 0.5rem" }}>
-              <Typography sx={{ fontSize: "1.5rem", textDecoration: "none" }}>
-                {username}
-              </Typography>
-            </Button>
+    <div>
+      <div className='navbar'>
+        <img alt="logo" src={Logo} className='logo' />
+        <div className="nav-links">
+          <Link className={page === "home" ? `active-nav-link` : `nav-link`} to='/' >
+            <button>HOME</button>
           </Link>
+          {
+            isLoggedIn ? <>
+              <Link className={page === "" ? `active-nav-link` : `nav-link`} to={`/profile/${username}`}>
+                <button>{username.toUpperCase()}</button>
+              </Link>
+              <Link onClick={logoutHandler} className={page === "" ? `active-nav-link` : `nav-link`} to='/' >
+                <button>LOGOUT</button>
+              </Link>
+            </> : <>
 
-          <Button onClick={logoutHandler} variant='contained' disableElevation style={{ margin: "0rem 0.5rem" }}>
-            <Typography sx={{ fontSize: "1.5rem", textDecoration: "none" }}>
-              Logout
-            </Typography>
-          </Button>
+              <Link className={page === "login" ? `active-nav-link` : `nav-link`} to='/login' >
+                <button>LOGIN</button>
+              </Link>
+              <Link className={page === "signup" ? `active-nav-link` : `nav-link`} to='/signup' >
+                <button>SIGNUP</button>
+              </Link>
+            </>
+
+
+          }
+
         </div>
-        ) : (
-          <Link to='/login' >
-            <Button variant='contained' disableElevation style={{ margin: "0rem 0.5rem" }}>
-              <Typography sx={{ fontSize: "1.5rem", textDecoration: "none" }}>
-                Login
-              </Typography>
-            </Button>
-          </Link>
-        )}
+      </div>
 
-      </Container>
-    </Container >
+    </div>
   )
 }
 

@@ -2,9 +2,10 @@ import React from 'react'
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import { useSelector } from 'react-redux';
 
-const ExperienceComponent = (props) => {
-  const experience = props.experience;
+const ExperienceComponent = () => {
+  const { experience } = useSelector(state => state.profile);
   return (
     <div style={{ marginTop: "2rem" }}>
       {experience.map((exp) => {

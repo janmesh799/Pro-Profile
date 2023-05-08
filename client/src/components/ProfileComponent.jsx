@@ -10,13 +10,12 @@ import AchievementsComponent from './profileComponents/AchievementsComponent';
 import ExperienceComponent from './profileComponents/ExperienceComponent';
 import SkillsComponent from './profileComponents/SkillsComponent';
 import SocialsComponent from "./profileComponents/SocialsComponents"
+import { useSelector } from 'react-redux';
 
 
 
-const ProfileComponent = (props) => {
-    const username = props.username;
-    const [found, setFound] = useState(false)
-    const [profile, setProfile] = useState({})
+const ProfileComponent = () => {
+    const { isFound } = useSelector(state => state.profile);
     const ELEMENTS = { EDUCATION: "EDUCATION", PROJECTS: "PROJECTS", ACHIEVEMENTS: "ACHIEVEMENTS", SKILLS: "SKILLS", EXPERIENCE: "EXPERIENCE", SOCIALS: "SOCIALS" };
     const [currentElement, setCurrentElement] = useState(ELEMENTS.EDUCATION)
     // const pages = [ "EDUCATION", "PROJECTS", "ACHIEVEMENTS", "SKILLS"];
@@ -53,23 +52,7 @@ const ProfileComponent = (props) => {
             color: "#CC97C1"
         }
     ]
-    useEffect(() => {
-        const fetchProfile = async () => {
-            const response = await axios.get(`http://localhost:5000/api/profile/getProfile`, {
-                headers: {
-                    username: username
-                }
-            })
-            const data = response.data
-            if (data.success) {
-                setFound(true)
-                setProfile(data.profile)
-            }
-
-        }
-        fetchProfile()
-    }, [username])
-    if (!found) {
+    if (!isFound) {
         return (
             <div>
                 <h1>
@@ -83,7 +66,7 @@ const ProfileComponent = (props) => {
         return (
             <>
 
-                <BioComponent bio={profile.bio} element={currentElement} />
+                <BioComponent element={currentElement} />
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <Container sx={{ display: "flex", flexDirection: "column", width: "12vw", margin: "1rem", height: "100%" }} >
                         {pages.map((page) => {
@@ -103,12 +86,12 @@ const ProfileComponent = (props) => {
 
                     </Container>
                     <Container>
-                        {currentElement === ELEMENTS.EDUCATION && <EducationComponent education={profile.education} />}
-                        {currentElement === ELEMENTS.PROJECTS && <ProjectsComponent projects={profile.project} />}
-                        {currentElement === ELEMENTS.ACHIEVEMENTS && <AchievementsComponent achievements={profile.achievements} />}
-                        {currentElement === ELEMENTS.SKILLS && <SkillsComponent skills={profile.skills} />}
-                        {currentElement === ELEMENTS.EXPERIENCE && <ExperienceComponent experience={profile.experience} />}
-                        {currentElement === ELEMENTS.SOCIALS && <SocialsComponent socials={profile.socials} />}
+                        {currentElement === ELEMENTS.EDUCATION && <EducationComponent />}
+                        {currentElement === ELEMENTS.PROJECTS && <ProjectsComponent />}
+                        {currentElement === ELEMENTS.ACHIEVEMENTS && <AchievementsComponent />}
+                        {currentElement === ELEMENTS.SKILLS && <SkillsComponent />}
+                        {currentElement === ELEMENTS.EXPERIENCE && <ExperienceComponent />}
+                        {currentElement === ELEMENTS.SOCIALS && <SocialsComponent />}
 
 
                     </Container>

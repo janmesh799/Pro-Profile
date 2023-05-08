@@ -2,9 +2,17 @@ import React from 'react'
 import SchoolIcon from '@mui/icons-material/School';
 import { Typography } from '@mui/material';
 import { Container } from '@mui/system';
+import { useSelector } from 'react-redux';
 
-const EducationComponent = (props) => {
-  const education = props.education;
+const EducationComponent = () => {
+  const { education } = useSelector(state => state.profile)
+  if (education === null || education === []) {
+    return (
+      <div style={{ marginTop: "2rem" }}>
+      <Typography variant='h2'> Nothing to show here!</Typography>
+      </div>
+    )
+  }
   return (
     <div style={{ marginTop: "2rem" }}>
       {education.map((edu) => {
