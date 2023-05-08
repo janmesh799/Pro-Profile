@@ -28,7 +28,7 @@ const login = async (userData) => {
                 "Content-Type": "application/json"
             }
         }
-        const response = await axios.post(API_URL + 'login', userData, config)
+        const response = await axios.post(API_URL + '/login', userData, config)
         // console.log(response)
         return response.data
     } catch (err) {
