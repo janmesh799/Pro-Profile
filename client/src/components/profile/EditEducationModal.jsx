@@ -7,7 +7,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Container } from '@mui/system';
 
 const style = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         width: "75vw",
     },
     position: 'absolute',

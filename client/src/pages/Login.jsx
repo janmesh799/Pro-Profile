@@ -12,7 +12,7 @@ import { login, setErrorNull } from '../store/auth/authSlice'
 
 
 const style = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         flexDirection: "column"
     },
     display: "flex",
@@ -20,7 +20,7 @@ const style = {
     marginTop: "8vw"
 }
 const textFieldStyle = {
-    '@media (max-width:400px)': {
+    '@media (max-width:480px)': {
         fontSize: "0.1rem",
         width: "80vw",
         margin: "1rem auto 1rem auto"
@@ -29,7 +29,7 @@ const textFieldStyle = {
     margin: "0.5vw 0vw"
 }
 const textStyle = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         fontSize: "3rem",
         marginBottom: "1rem"
     },
@@ -37,7 +37,7 @@ const textStyle = {
 }
 
 const buttonStyle = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         width: "20rem",
         margin: "auto"
     },
@@ -94,7 +94,7 @@ const Login = () => {
                 <TextField onChange={handleChange} name="password" value={creds.password} sx={textFieldStyle} type='password' margin='dense' label='Password' />
                 <Button onClick={handleSubmit} sx={buttonStyle} variant='contained'>Submit</Button>
                 <Typography variant="caption" sx={{
-                    '@media (max-width: 400px)': {
+                    '@media (max-width: 480px)': {
                         margin:"1rem auto 0rem auto",
                         width:"18rem"
                     }, 
