@@ -86,7 +86,7 @@ const Signup = () => {
             dispatch(setErrorNull());
         }
 
-    }, [dispatch, navigate, isLoggedIn, isError, errorMessage])
+    }, [dispatch, navigate, isLoggedIn, isError, errorMessage,authToken])
 
     return (
         //name,email,password, password2 ,username

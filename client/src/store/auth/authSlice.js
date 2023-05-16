@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from './authService';
-import profileService from "../profile/ProfileService";
 
 const authToken = localStorage.getItem('authToken');
 const initialState = {
@@ -10,8 +9,8 @@ const initialState = {
     authToken: authToken ? authToken : null,
     isError: false,
     errorMessage: null,
-    isSelfProfile: false,
-    selfProfile: null
+    // isSelfProfile: false,
+    // selfProfile: null
 };
 
 export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
@@ -54,18 +53,18 @@ export const getUser = createAsyncThunk('auth/getuser', async (authToken, thunkA
         return thunkAPI.rejectWithValue(message);
     }
 })
-export const getSelfProfile = createAsyncThunk('auth/getSelfProfile', async (username, thunkAPI) => {
-    try {
-        const response = await profileService.getProfile(username);
-        if (response.success) return response;
-        else {
-            throw new Error(response.message);
-        }
-    } catch (error) {
-        const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
-        return thunkAPI.rejectWithValue(message);
-    }
-})
+// export const getSelfProfile = createAsyncThunk('auth/getSelfProfile', async (username, thunkAPI) => {
+//     try {
+//         const response = await profileService.getProfile(username);
+//         if (response.success) return response;
+//         else {
+//             throw new Error(response.message);
+//         }
+//     } catch (error) {
+//         const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
+//         return thunkAPI.rejectWithValue(message);
+//     }
+// })
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -148,18 +147,19 @@ const authSlice = createSlice({
                 state.errorMessage = action.payload;
                 localStorage.removeItem('authToken')
             })
-            .addCase(getSelfProfile.pending, (state) => {
-                state.isSelfProfile = false;
-                state.selfProfile = null;
-            })
-            .addCase(getSelfProfile.fulfilled, (state, action) => {
-                state.isSelfProfile = true;
-                state.selfProfile = action.payload.profile;
-            })
-            .addCase(getSelfProfile.rejected, (state) => {
-                state.isSelfProfile = false;
-                state.selfProfile = null;
-            })
+            // .addCase(getSelfProfile.pending, (state) => {
+            //     state.isSelfProfile = false;
+            //     state.selfProfile = null;
+            // })
+            // .addCase(getSelfProfile.fulfilled, (state, action) => {
+            //     console.log("action.payload.profile=>", action.payload.profile)
+            //     state.isSelfProfile = true;
+            //     state.selfProfile = action.payload.profile;
+            // })
+            // .addCase(getSelfProfile.rejected, (state) => {
+            //     state.isSelfProfile = false;
+            //     state.selfProfile = null;
+            // })
     }
 });
 
