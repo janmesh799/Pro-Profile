@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import { setPage } from '../store/application/applicationSlice'
 import { setErrorNull, signup } from '../store/auth/authSlice'
 import { toast } from 'react-toastify'
+
+
 function isStrongPassword(password) {
     // Regular expressions to check for different criteria
     const uppercaseRegex = /[A-Z]/;
@@ -44,7 +46,41 @@ function isStrongPassword(password) {
     // All criteria passed, the password is strong
     return true;
 }
+const style = {
+    '@media (max-width: 500px)': {
+        flexDirection: "column-reverse",
+        marginTop:"0.5rem"
+    },
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "2vw"
+}
+const textFieldStyle = {
+    '@media (max-width:500px)': {
+        fontSize: "0.1rem",
+        width: "80vw",
+        margin: "1rem auto 1rem auto"
+    },
+    width: "20vw",
+    margin: "0.5vw 0vw"
+}
+const textStyle = {
+    '@media (max-width: 500px)': {
+        fontSize: "1.5rem",
+        margin: "0rem 0rem 1rem 0rem",
+    },
+    margin: '0rem'
+}
 
+const buttonStyle = {
+    '@media (max-width: 500px)': {
+        width: "20rem",
+        margin: "auto"
+    },
+    margin: "2rem auto 0rem auto",
+    fontSize: "1.25rem",
+    width: "20vw"
+}
 const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -86,28 +122,40 @@ const Signup = () => {
             dispatch(setErrorNull());
         }
 
-    }, [dispatch, navigate, isLoggedIn, isError, errorMessage,authToken])
+    }, [dispatch, navigate, isLoggedIn, isError, errorMessage, authToken])
 
     return (
         //name,email,password, password2 ,username
         <div>
-            <Container sx={{ display: "flex", justifyContent: "space-between", marginTop: "8vw" }}>
+            <Container sx={style}>
                 <FormControl>
-                    <TextField onChange={handleChange} name="name" value={creds.name} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='text' margin='dense' label='Name' />
-                    <TextField onChange={handleChange} name="username" value={creds.username} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='text' margin='dense' label='Username' />
-                    <TextField onChange={handleChange} name="email" value={creds.email} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='email' margin='dense' label='Email Address' />
-                    <TextField onChange={handleChange} name="password" value={creds.password} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='password' margin='dense' label='Password' />
-                    <TextField onChange={handleChange} name="password2" value={creds.password2} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='password' margin='dense' label='Confirm Password' />
-                    <Button onClick={handleSubmit} sx={{ width: "20vw", marginTop: "2rem", fontSize: "1.25rem" }} variant='contained'>Submit</Button>
-                    <Typography variant="caption" sx={{ fontSize: "1.2rem", margin: "2rem 0rem", width: "20vw" }}>Already have an account? <Link to='/login'>Log in</Link></Typography>
+                    <TextField onChange={handleChange} name="name" value={creds.name} sx={textFieldStyle} type='text' margin='dense' label='Name' />
+                    <TextField onChange={handleChange} name="username" value={creds.username} sx={textFieldStyle} type='text' margin='dense' label='Username' />
+                    <TextField onChange={handleChange} name="email" value={creds.email} sx={textFieldStyle} type='email' margin='dense' label='Email Address' />
+                    <TextField onChange={handleChange} name="password" value={creds.password} sx={textFieldStyle} type='password' margin='dense' label='Password' />
+                    <TextField onChange={handleChange} name="password2" value={creds.password2} sx={textFieldStyle} type='password' margin='dense' label='Confirm Password' />
+                    <Button onClick={handleSubmit} sx={buttonStyle} variant='contained'>Submit</Button>
+                    <Typography variant="caption" sx={{
+                        '@media (max-width: 500px)': {
+                            margin: "1rem auto 0rem auto",
+                            width: "18rem"
+                        },
+                        fontSize: "1.2rem",
+                        margin: "1rem auto 0rem auto",
+                        width: "18rem"
+                    }}>Already have an account? <Link to='/login'>Log in</Link></Typography>
                 </FormControl>
-                <Container maxWidth="mx" sx={{ margin: '0rem 0rem 0rem 30%', width: "70vw" }}>
-                    <Typography variant='h1'>
+                <Container maxWidth="mx" sx={{
+                    '@media (max-width: 500px)': {
+                        margin: '0rem auto 0rem auto', width: "70vw"
+                    }, margin: '0rem 0rem 0rem 30%', width: "70vw"
+                }}>
+                    <Typography sx={textStyle} variant='h1'>
                         Sign Up and Shine!
                         { // Log in to show the world who you are.
                         }
                     </Typography>
-                    <Typography variant='h3'>
+                    <Typography sx={textStyle} variant='h3'>
                         Unlock Your Profile Potential</Typography>
                 </Container>
             </Container >
