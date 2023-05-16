@@ -47,7 +47,7 @@ function isStrongPassword(password) {
     return true;
 }
 const style = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         flexDirection: "column-reverse",
         marginTop:"0.5rem"
     },
@@ -56,7 +56,7 @@ const style = {
     marginTop: "2vw"
 }
 const textFieldStyle = {
-    '@media (max-width:400px)': {
+    '@media (max-width:480px)': {
         fontSize: "0.1rem",
         width: "80vw",
         margin: "1rem auto 1rem auto"
@@ -65,7 +65,7 @@ const textFieldStyle = {
     margin: "0.5vw 0vw"
 }
 const textStyle = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         fontSize: "1.5rem",
         margin: "0rem 0rem 1rem 0rem",
     },
@@ -73,7 +73,7 @@ const textStyle = {
 }
 
 const buttonStyle = {
-    '@media (max-width: 400px)': {
+    '@media (max-width: 480px)': {
         width: "20rem",
         margin: "auto"
     },
@@ -136,7 +136,7 @@ const Signup = () => {
                     <TextField onChange={handleChange} name="password2" value={creds.password2} sx={textFieldStyle} type='password' margin='dense' label='Confirm Password' />
                     <Button onClick={handleSubmit} sx={buttonStyle} variant='contained'>Submit</Button>
                     <Typography variant="caption" sx={{
-                        '@media (max-width: 400px)': {
+                        '@media (max-width: 480px)': {
                             margin: "1rem auto 0rem auto",
                             width: "18rem"
                         },
@@ -146,7 +146,7 @@ const Signup = () => {
                     }}>Already have an account? <Link to='/login'>Log in</Link></Typography>
                 </FormControl>
                 <Container maxWidth="mx" sx={{
-                    '@media (max-width: 400px)': {
+                    '@media (max-width: 480px)': {
                         margin: '0rem auto 0rem auto', width: "70vw"
                     }, margin: '0rem 0rem 0rem 30%', width: "70vw"
                 }}>

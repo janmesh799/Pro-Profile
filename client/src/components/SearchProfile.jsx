@@ -6,14 +6,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom'
 
 const searchBarStyle = {
-  '@media (max-width: 400px)': {
+  '@media (max-width: 480px)': {
     width: "80vw !important",
     margin: "0rem auto 2rem auto"
   },
   width: "25vw"
 }
 const formStyle = {
-  '@media (max-width: 400px)': {
+  '@media (max-width: 480px)': {
     flexDirection: "column"
   },
   display: "flex",
