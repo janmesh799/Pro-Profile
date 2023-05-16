@@ -7,8 +7,9 @@
 }
 
 .logo {
-    height: 100px;
-    margin-left: 36px;
+    height: 4rem;
+    margin-top: 0.35rem;
+    /* margin-left: 36px; */
 }
 
 .nav-links {

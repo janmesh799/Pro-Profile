@@ -11,8 +11,40 @@ import { setPage } from '../store/application/applicationSlice'
 import { login, setErrorNull } from '../store/auth/authSlice'
 
 
+const style = {
+    '@media (max-width: 500px)': {
+        flexDirection: "column"
+    },
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: "8vw"
+}
+const textFieldStyle = {
+    '@media (max-width:500px)': {
+        fontSize: "0.1rem",
+        width: "80vw",
+        margin: "1rem auto 1rem auto"
+    },
+    width: "20vw",
+    margin: "0.5vw 0vw"
+}
+const textStyle = {
+    '@media (max-width: 500px)': {
+        fontSize: "3rem",
+        marginBottom: "1rem"
+    },
+    margin: '0rem'
+}
 
-
+const buttonStyle = {
+    '@media (max-width: 500px)': {
+        width: "20rem",
+        margin: "auto"
+    },
+    margin: "2rem auto 0rem auto",
+    fontSize: "1.25rem",
+    width: "20vw"
+}
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -47,21 +79,26 @@ const Login = () => {
 
 
     return (
-        <Container sx={{ display: "flex", justifyContent: "space-between", marginTop: "8vw" }}>
-            <Container maxWidth="md" sx={{ margin: '0rem' }}>
-                <Typography variant='h1'>
+        <Container sx={style}>
+            <Container maxWidth="md"  >
+                <Typography sx={textStyle} variant='h1'>
                     Welcome Back
                     { // Log in to show the world who you are.
                     }
                 </Typography>
-                <Typography variant='h3'>
+                <Typography sx={textStyle} variant='h3'>
                     <u>Resume</u> your journey</Typography>
             </Container>
-            <FormControl sx={{ backgroundColor: "" }}>
-                <TextField onChange={handleChange} name="email" value={creds.email} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='email' margin='dense' label='Email Address' />
-                <TextField onChange={handleChange} name="password" value={creds.password} sx={{ width: "20vw", margin: "0.5vw 0vw" }} type='password' margin='dense' label='Password' />
-                <Button onClick={handleSubmit} sx={{ marginTop: "2rem", fontSize: "1.25rem", width: "20vw" }} variant='contained'>Submit</Button>
-                <Typography variant="caption" sx={{ fontSize: "1.2rem", margin: "2rem 0rem", width: "20vw" }}>Don't have an account? <Link to='/signup'>Create Account</Link></Typography>
+            <FormControl >
+                <TextField onChange={handleChange} name="email" value={creds.email} sx={textFieldStyle} type='email' margin='dense' label='Email Address' />
+                <TextField onChange={handleChange} name="password" value={creds.password} sx={textFieldStyle} type='password' margin='dense' label='Password' />
+                <Button onClick={handleSubmit} sx={buttonStyle} variant='contained'>Submit</Button>
+                <Typography variant="caption" sx={{
+                    '@media (max-width: 500px)': {
+                        margin:"1rem auto 0rem auto",
+                        width:"18rem"
+                    }, fontSize: "1.2rem", margin: "1rem auto 0rem auto", width: "18rem"
+                }}>Don't have an account? <Link to='/signup'>Create Account</Link></Typography>
             </FormControl>
         </Container >
     )

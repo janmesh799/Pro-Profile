@@ -10,7 +10,7 @@ import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import axios from 'axios';
-import EducationCardComponent from '../components/profileComponents/profile/EducationCardComponent';
+import EducationCardComponent from '../components/profile/EducationCardComponent';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
