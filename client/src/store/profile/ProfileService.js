@@ -13,6 +13,7 @@ const getProfile = async (username) => {
                 "username": username
             }
         }
+        console.log(config)
         const response = await axios.get(API_URL + "/getprofile", config);
         return response.data;
 

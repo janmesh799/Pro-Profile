@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 // import { logout, getUser } from '../controllers/userController'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { logout } from "../store/auth/authSlice"
 
 
@@ -16,7 +15,6 @@ const Navbar = () => {
   if (user) username = user.username;
   const { page } = useSelector(state => state.application)
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const logoutHandler = () => {
     dispatch(logout());
   }
