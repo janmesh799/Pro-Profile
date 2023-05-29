@@ -14,7 +14,7 @@ app.use("/api/auth", require('./Routes/auth.js'));
 
 app.use("/api/profile", require('./Routes/profile.js'));
 app.use("/", (req, res) => {
-    res.json({ success: true })
+    res.json({ success: true, endpoint: "home" })
 })
 
 app.listen(PORT, () => {

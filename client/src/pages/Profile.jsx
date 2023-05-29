@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { getUser } from '../store/auth/authSlice';
-import { Container, Typography } from "@mui/material"
+import { Button, Container, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -11,6 +11,7 @@ import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import axios from 'axios';
 import EducationCardComponent from '../components/profile/EducationCardComponent';
+import AddEducationModal from '../components/profile/AddEducationModal';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -77,7 +78,7 @@ const Profile = () => {
             toast.warn("Please login ")
             navigate('/login')
         }
-    }, [authToken, dispatch, navigate, user])
+    }, [authToken, dispatch, navigate, user, profile])
     const [expanded, setExpanded] = useState('panel1');
 
     const handleChange = (panel) => (event, newExpanded) => {
@@ -87,8 +88,8 @@ const Profile = () => {
         <Container sx={{ marginTop: "2rem" }}>
             <Typography align='center' variant="h3">Your Profile !</Typography>
             {profile ? <Container style={{ marginTop: "2rem" }}>
-                <Typography align='center' variant="h4" fontSize="xl" sx={{ mb: 0.5 }}>
-                    <u>  {profile.bio.name}</u>
+                <Typography align='center' variant="h4" fontSize="xl" sx={{ mb: 0.5 }} >
+                    <u >  {profile.bio.name}</u>
                 </Typography>
                 <div>
                     <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
@@ -96,7 +97,7 @@ const Profile = () => {
                             <Typography variant='h5'>Bio</Typography>
                         </AccordionSummary>
                         <AccordionDetails sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", textAlign: "center" }}>
-                          bio
+                            bio
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -107,6 +108,7 @@ const Profile = () => {
                             {profile.education.map((edu) => {
                                 return <EducationCardComponent education={edu} />
                             })}
+                            <AddEducationModal />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
