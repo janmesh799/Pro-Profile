@@ -5,6 +5,8 @@ const fetchUser = require("../middleware/fetchUser")
 const createProfile = require('./profile/createProfile.js');
 const updateProfile = require('./profile/updateProfile.js');
 const getProfile = require('./profile/getProfile.js');
+const addEducation = require('./profile/addEducation');
+const deleteEducation = require('./profile/deleteEducaton');
 
 
 // @Route: POST /api/auth/createProfile
@@ -25,5 +27,9 @@ router.post("/updateProfile", fetchUser, updateProfile);
 //@Access: public
 //@data: headers({username})
 router.get("/getProfile", getProfile);
+
+router.post("/addEducation", fetchUser, addEducation)
+
+router.delete("/deleteEducation",fetchUser, deleteEducation);
 
 module.exports = router;
