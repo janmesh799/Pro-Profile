@@ -31,6 +31,34 @@ export const getProfile = createAsyncThunk('profile/getProfile', async (username
     }
 })
 
+export const addEducation = createAsyncThunk('profile/addEducation', async ({education, authToken}, thunkAPI) => {
+    try {
+        const response = await profileService.addEducation({education,authToken});
+        console.log(response)
+        if (response.success) return response;
+        else {
+            throw new Error(response.message)
+        }
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+export const deleteEducation = createAsyncThunk('profile/deleteEducation', async ({educationId, authToken}, thunkAPI) => {
+    try {
+        const response = await profileService.deleteEducation({educationId,authToken});
+        console.log(response)
+        if (response.success) return response;
+        else {
+            throw new Error(response.message)
+        }
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+
+
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,

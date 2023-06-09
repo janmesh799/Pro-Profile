@@ -6,6 +6,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import EditEducationModal from './EditEducationModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteEducation } from '../../store/profile/profileSlice';
 
 
 const formatDate = (isoDateString) => {
@@ -19,8 +21,10 @@ const formatDate = (isoDateString) => {
 
 export default function EducationCardComponent(props) {
   const edu = props.education;
+  const dispatch = useDispatch();
+  const { authToken } = useSelector(state => state.auth);
   const deleteEducationHandler = (id) => {
-    alert(`delete education with id ${id}`)
+    dispatch(deleteEducation({ educationId: edu._id, authToken: authToken }))
   }
   const card = (
     <React.Fragment>
