@@ -6,6 +6,8 @@ const applicationSlice = createSlice({
     initialState: {
         page: null,
         profilePage: null,
+        isMessage: false,
+        message: null,
     },
     reducers: {
         setPage: (state, action) => {
@@ -13,6 +15,14 @@ const applicationSlice = createSlice({
         },
         setProfilePage: (state, action) => {
             state.profilePage = action.payload
+        },
+        setMessage: (state, action) => {
+            state.isMessage = true;
+            state.message = action.payload;
+        },
+        setMessageNull: (state) => {
+            state.isMessage = false
+            state.message = null
         }
     },
     extraReducers: {
@@ -21,6 +31,6 @@ const applicationSlice = createSlice({
 });
 
 
-export const { setPage } = applicationSlice.actions;
+export const { setPage, setProfilePage, setMessage, setMessageNull } = applicationSlice.actions;
 export default applicationSlice.reducer;
 

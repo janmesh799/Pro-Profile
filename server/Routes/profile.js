@@ -7,6 +7,8 @@ const updateProfile = require('./profile/updateProfile.js');
 const getProfile = require('./profile/getProfile.js');
 const addEducation = require('./profile/addEducation');
 const deleteEducation = require('./profile/deleteEducaton');
+const addExperience = require('./profile/addExperience');
+const deleteExperience = require('./profile/deleteExperience');
 
 
 // @Route: POST /api/auth/createProfile
@@ -30,6 +32,10 @@ router.get("/getProfile", getProfile);
 
 router.post("/addEducation", fetchUser, addEducation)
 
-router.delete("/deleteEducation",fetchUser, deleteEducation);
+router.delete("/deleteEducation", fetchUser, deleteEducation);
+
+router.post("/addExperience", fetchUser, addExperience);
+
+router.delete("/deleteExperience", fetchUser, deleteExperience)
 
 module.exports = router;

@@ -1,8 +1,7 @@
 import axios from 'axios'
+import { Host } from '../../constantVariables'
 
-
-// const API_URL = 'http://localhost:5000/api/auth'
-const API_URL = 'https://pro-profile.vercel.app/api/auth'
+const API_URL = `${Host}/api/auth`
 
 //register user
 const signup = async (userData) => {

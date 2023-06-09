@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Host } from '../constantVariables'
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -54,14 +55,15 @@ const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate()
     useEffect(() => {
-        if (user) {
+        if (user && !profile) {
             const fetchProfile = async () => {
                 const config = {
                     headers: {
                         "username": user.username
                     }
                 }
-                const response = await axios.get("https://pro-profile.vercel.app/api/profile/getprofile", config);
+                const response = await axios.get(`${Host}/api/profile/getprofile`, config);
+                // const response = await axios.get("https://pro-profile.vercel.app/api/profile/getprofile", config);
                 if (response.data.success) {
                     setProfle(response.data.profile)
                 }
