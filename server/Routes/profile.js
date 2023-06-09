@@ -9,6 +9,8 @@ const addEducation = require("./profile/addEducation");
 const deleteEducation = require("./profile/deleteEducation");
 const addExperience = require("./profile/addExperience");
 const deleteExperience = require("./profile/deleteExperience");
+const addProject = require("./profile/addProject");
+const deleteProject = require("./profile/deleteProject");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -51,5 +53,17 @@ router.post("/addExperience", fetchUser, addExperience);
 //@Access: private
 //@data: headers({authToken, experienceId})
 router.delete("/deleteExperience", fetchUser, deleteExperience);
+
+//@Route: POST /api/profile/addExperience
+//@Desc: adding new Experience
+//@Access: private
+//@data: headers({authToken}), body({experience})
+router.post("/addProject", fetchUser, addProject);
+
+//@Route: DELETE /api/profile/deleteExperience
+//@Desc: deleting experience
+//@Access: private
+//@data: headers({authToken, experienceId})
+router.delete("/deleteProject", fetchUser, deleteProject);
 
 module.exports = router;
