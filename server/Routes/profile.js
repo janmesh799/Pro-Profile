@@ -1,41 +1,55 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const User = require('./../Models/User');
-const fetchUser = require("../middleware/fetchUser")
-const createProfile = require('./profile/createProfile.js');
-const updateProfile = require('./profile/updateProfile.js');
-const getProfile = require('./profile/getProfile.js');
-const addEducation = require('./profile/addEducation');
-const deleteEducation = require('./profile/deleteEducaton');
-const addExperience = require('./profile/addExperience');
-const deleteExperience = require('./profile/deleteExperience');
+const User = require("./../Models/User");
+const fetchUser = require("../middleware/fetchUser");
+const createProfile = require("./profile/createProfile.js");
+const updateProfile = require("./profile/updateProfile.js");
+const getProfile = require("./profile/getProfile.js");
+const addEducation = require("./profile/addEducation");
+const deleteEducation = require("./profile/deleteEducation");
+const addExperience = require("./profile/addExperience");
+const deleteExperience = require("./profile/deleteExperience");
 
-
-// @Route: POST /api/auth/createProfile
+// @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
 // @Access: Private
 // @data: body({bio,profilePic,educations,projects,achievements,experience,skills,socials}), headers({authToken})
 router.post("/createProfile", fetchUser, createProfile);
 
-
-//@Route: POST /api/auth/updateProfile
+//@Route: POST /api/profile/updateProfile
 //@Desc: Update a profile
 //@Access: Private
 //@data: body({bio,profilePic,educations,projects,achievements,experience,skills,socials}), headers({authToken})
 router.post("/updateProfile", fetchUser, updateProfile);
 
-//@Route: GET /api/auth/getProfile
+//@Route: GET /api/profile/getProfile
 //@Desc: Get a profile
 //@Access: public
 //@data: headers({username})
 router.get("/getProfile", getProfile);
 
-router.post("/addEducation", fetchUser, addEducation)
+//@Route: POST /api/profile/addEducation
+//@Desc: adding new education
+//@Access: private
+//@data: headers({authToken}), body({education})
+router.post("/addEducation", fetchUser, addEducation);
 
+//@Route: DELETE /api/profile/deleteEducation
+//@Desc: deleting education
+//@Access: private
+//@data: headers({authToken, educationId})
 router.delete("/deleteEducation", fetchUser, deleteEducation);
 
+//@Route: POST /api/profile/addExperience
+//@Desc: adding new Experience
+//@Access: private
+//@data: headers({authToken}), body({experience})
 router.post("/addExperience", fetchUser, addExperience);
 
-router.delete("/deleteExperience", fetchUser, deleteExperience)
+//@Route: DELETE /api/profile/deleteExperience
+//@Desc: deleting experience
+//@Access: private
+//@data: headers({authToken, experienceId})
+router.delete("/deleteExperience", fetchUser, deleteExperience);
 
 module.exports = router;
