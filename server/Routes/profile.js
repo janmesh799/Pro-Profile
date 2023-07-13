@@ -9,6 +9,8 @@ const addEducation = require("./profile/addEducation");
 const deleteEducation = require("./profile/deleteEducation");
 const addExperience = require("./profile/addExperience");
 const deleteExperience = require("./profile/deleteExperience");
+const editEducation = require("./profile/editEducation");
+const editExperience = require("./profile/editExperience");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -34,6 +36,12 @@ router.get("/getProfile", getProfile);
 //@data: headers({authToken}), body({education})
 router.post("/addEducation", fetchUser, addEducation);
 
+//@Route: PUT /api/profile/editEducation
+//@Desc: editing education
+//@Access: private
+//@data: headers({authToken, educationId}), body({education})
+router.put("/editEducation", fetchUser, editEducation);
+
 //@Route: DELETE /api/profile/deleteEducation
 //@Desc: deleting education
 //@Access: private
@@ -45,6 +53,12 @@ router.delete("/deleteEducation", fetchUser, deleteEducation);
 //@Access: private
 //@data: headers({authToken}), body({experience})
 router.post("/addExperience", fetchUser, addExperience);
+
+//@Route: PUT /api/profile/editExperience
+//@Desc: editing experience
+//@Access: private
+//@data: headers({authToken, experienceId}), body({experience})
+router.put("/editExperience", fetchUser, editExperience);
 
 //@Route: DELETE /api/profile/deleteExperience
 //@Desc: deleting experience

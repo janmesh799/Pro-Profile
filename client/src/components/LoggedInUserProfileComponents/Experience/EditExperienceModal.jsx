@@ -42,7 +42,7 @@ export default function EditExperienceModal(props) {
         setEdu({ ...exp, [id]: value })
     }
     const submitHandler = () => {
-        alert("edit button clicked")
+        alert("edit button clicked")    
     }
     return (
         <div>
