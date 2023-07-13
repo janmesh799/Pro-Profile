@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { getUser } from '../store/auth/authSlice';
-import { Button, Container, Typography } from "@mui/material"
+import {  Container, Typography } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import axios from 'axios';
-import EducationCardComponent from '../components/profile/EducationCardComponent';
-import AddEducationModal from '../components/profile/AddEducationModal';
+import EducationCardComponent from '../components/LoggedInUserProfileComponents/Education/EducationCardComponent';
+import AddEducationModal from '../components/LoggedInUserProfileComponents/Education/AddEducationModal'
+import AddExperienceModal from '../components/LoggedInUserProfileComponents/Experience/AddExperienceModal'
+import ExperienceCardComponent from '../components/LoggedInUserProfileComponents/Experience/ExperienceCardComponent'
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -51,7 +53,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 }));
 const Profile = () => {
     const { user, authToken } = useSelector(state => state.auth);
-    const [profile, setProfle] = useState(null);
+    const [profile, setProfile] = useState(null);
     const dispatch = useDispatch();
     const navigate = useNavigate()
     useEffect(() => {
@@ -65,7 +67,7 @@ const Profile = () => {
                 const response = await axios.get(`${Host}/api/profile/getprofile`, config);
                 // const response = await axios.get("https://pro-profile.vercel.app/api/profile/getprofile", config);
                 if (response.data.success) {
-                    setProfle(response.data.profile)
+                    setProfile(response.data.profile)
                 }
                 else {
                     toast.error("can't fetch profile")
@@ -99,7 +101,7 @@ const Profile = () => {
                             <Typography variant='h5'>Bio</Typography>
                         </AccordionSummary>
                         <AccordionDetails sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", textAlign: "center" }}>
-                            bio
+                            {profile.bio.about}
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
@@ -115,15 +117,13 @@ const Profile = () => {
                     </Accordion>
                     <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-                            <Typography>Collapsible Group Item #2</Typography>
+                            <Typography variant='h5'>Experience</Typography>
                         </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                                sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
+                        <AccordionDetails sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", textAlign: "center" }}>
+                        {profile.experience.map((exp) => {
+                            return <ExperienceCardComponent experience={exp} />
+                        })}
+                        <AddExperienceModal />
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
