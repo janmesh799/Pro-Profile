@@ -1,11 +1,11 @@
 const Profile = require("../../Models/profile");
 
-const deleteExperience = async (req, res) => {
+const deleteProject = async (req, res) => {
   let errorCode = null;
   try {
-    // extracting username and experienceId
+    // extracting username and projectId
     const username = req.user.user.username;
-    const experienceId = req.headers.experienceid;
+    const projectId = req.headers.projectid;
 
     // finding profile if exists
     const profile = await Profile.findOne({ username });
@@ -14,13 +14,13 @@ const deleteExperience = async (req, res) => {
       throw new Error("Profile not found");
     }
 
-    // deleting the targeted experience
-    let newExperience = [];
-    for (let i = 0; i < profile.experience.length; i++) {
-      if (experienceId === profile.experience[i]._id.toHexString()) continue;
-      newExperience.push(profile.experience[i]);
+    // deleting the targeted project
+    let newProject = [];
+    for (let i = 0; i < profile.project.length; i++) {
+      if (projectId === profile.project[i]._id.toHexString()) continue;
+      newProject.push(profile.project[i]);
     }
-    profile.experience = newExperience;
+    profile.project = newProject;
 
     // saving updated profile
     profile
@@ -28,7 +28,7 @@ const deleteExperience = async (req, res) => {
       .then(() => {
         res
           .status(200)
-          .json({ success: true, message: "Experience deleted successfully" });
+          .json({ success: true, message: "Project deleted successfully" });
       })
       .catch((err) => {
         throw new Error(err.message);
@@ -43,4 +43,4 @@ const deleteExperience = async (req, res) => {
   }
 };
 
-module.exports = deleteExperience;
+module.exports = deleteProject;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
   Modal,
@@ -12,8 +13,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Container } from "@mui/system";
-import { useSelector, useDispatch } from "react-redux";
-import { addEducation } from "../../../store/profile/profileSlice";
+import { editProject } from "../../../store/profile/profileSlice";
 import { toast } from "react-toastify";
 
 const style = {
@@ -36,68 +36,63 @@ const inputStyle = {
   margin: "auto",
   marginTop: "0.75rem",
 };
-
-export default function AddEducationModal() {
+const arrayToString = (arr) => {
+  let res = "";
+  for (let i = 0; i < arr.length; i++) {
+    res += arr[i] + ", ";
+  }
+  return res.substring(0, res.length - 2);
+};
+export default function EditProjectModal(props) {
   const dispatch = useDispatch();
   const { authToken } = useSelector((state) => state.auth);
-  const { message, isMessage } = useSelector((state) => state.application);
-  const [edu, setEdu] = useState({
-    institute: "",
-    course: "",
-    tenure: {
-      start: "",
-      end: "",
-    },
-    grade: "",
-    description: "",
-  });
-  const [date, SetDate] = useState({
-    start: dayjs(edu.tenure.start),
-    end: dayjs(edu.tenure.end),
-  });
+  const [proj, setExp] = useState(props.project);
+  const [tech, setTech] = useState(arrayToString(proj.technologies));
+  const [gitLink, setGitLink] = useState(proj.links.github);
+  const [liveLink, setLiveLink] = useState(proj.links.live);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    setEdu({ ...edu, [id]: value });
+    setExp({ ...proj, [id]: value });
   };
   const submitHandler = () => {
-    edu.tenure.start = date.start;
-    edu.tenure.end = date.end;
-    dispatch(addEducation({ authToken: authToken, education: edu }));
-    setOpen(false);
+    const projectId = proj._id;
+    proj.technologies = tech.split(",");
+    proj.links = { github: gitLink, live: liveLink };
+    dispatch(editProject({ projectId, project: proj, authToken }));
+    handleClose();
+    toast("edited! wait window is refreshing");
     setTimeout(function () {
       window.location.reload();
     }, 3000);
   };
   return (
-    <div style={{ display: "flex", margin: "auto 0rem auto 0rem" }}>
+    <div>
       <Button
         sx={{ margin: "0rem 0rem 1rem 0rem" }}
-        variant="contained"
+        variant="outlined"
         color="primary"
         size="small"
         onClick={handleOpen}
       >
-        ADD EDUCATION
+        EDIT Project
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-aria-labelledby="modal-modal-title"
-        aria-aria-describedby="modal-modal-description"
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {JSON.stringify(date)}
-
           <Typography
             align="center"
             id="modal-modal-title"
             variant="h6"
             component="h2"
           >
-            Add Education
+            Edit Project
           </Typography>
           <Container>
             <FormControl
@@ -110,64 +105,46 @@ export default function AddEducationModal() {
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.institute}
-                name="institute"
-                id="institute"
-                label="institute"
+                value={proj.title}
+                name="title"
+                id="title"
+                label="title"
                 variant="filled"
               />
               <TextField
                 sx={inputStyle}
-                onChange={handleOnChange}
-                value={edu.course}
-                name="course"
-                id="course"
-                label="course"
+                onChange={(e)=>{setTech(e.target.value)}}
+                value={tech}
+                name="technologies"
+                id="technologies"
+                label="technologies"
                 variant="filled"
               />
               <TextField
                 sx={inputStyle}
-                onChange={handleOnChange}
-                value={edu.grade}
-                name="grade"
-                id="grade"
-                label="grade"
-                variant="filled"
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  margin: "auto",
-                  marginTop: "1rem",
+                onChange={(e) => {
+                  setGitLink(e.target.value);
                 }}
-              >
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="start Date"
-                    value={date.start}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["start"]: newValue })
-                    }
-                  />
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="End Date"
-                    value={date.end}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["end"]: newValue })
-                    }
-                  />
-                </LocalizationProvider>
-              </div>
+                value={gitLink}
+                name="github_link"
+                id="github_link"
+                label="github_link"
+                variant="filled"
+              />
+              <TextField
+                sx={inputStyle}
+                onChange={(e)=>{setLiveLink(e.target.value)}}
+                value={liveLink}
+                name="live_link"
+                id="live_link"
+                label="live_link"
+                variant="filled"
+              />
+
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.description}
+                value={proj.description}
                 name="description"
                 id="description"
                 label="description"
@@ -180,7 +157,7 @@ export default function AddEducationModal() {
                 sx={{ width: "30%", margin: "auto", marginTop: "1.5rem" }}
                 variant="contained"
               >
-                Add
+                Edit
               </Button>
             </FormControl>
           </Container>

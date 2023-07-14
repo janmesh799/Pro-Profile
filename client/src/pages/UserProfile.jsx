@@ -15,6 +15,8 @@ import EducationCardComponent from '../components/LoggedInUserProfileComponents/
 import AddEducationModal from '../components/LoggedInUserProfileComponents/Education/AddEducationModal'
 import AddExperienceModal from '../components/LoggedInUserProfileComponents/Experience/AddExperienceModal'
 import ExperienceCardComponent from '../components/LoggedInUserProfileComponents/Experience/ExperienceCardComponent'
+import ProjectCardComponent from '../components/LoggedInUserProfileComponents/Project/ProjectCardComponent'
+import AddProjectModal from '../components/LoggedInUserProfileComponents/Project/AddProjectModal'
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -127,20 +129,18 @@ const Profile = () => {
                         </AccordionDetails>
                     </Accordion>
                     <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                        <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-                            <Typography>Collapsible Group Item #3</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-                                sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                                sit amet blandit leo lobortis eget.
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
+                    <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
+                        <Typography variant='h5'>Projects</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly", textAlign: "center" }}>
+                    {profile.project.map((proj) => {
+                        return <ProjectCardComponent project={proj} />
+                    })}
+                    <AddProjectModal />
+                    </AccordionDetails>
+                </Accordion>
                 </div>
-            </Container> : "plase wait! profile is begin fetched"}
+            </Container> : "plase wait! Your Profile is Being fetched"}
         </Container>
     )
 }

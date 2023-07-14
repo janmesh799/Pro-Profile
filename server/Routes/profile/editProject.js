@@ -1,12 +1,12 @@
 const Profile = require("../../Models/profile");
 
-const editExperience = async (req, res) => {
+const editProject = async (req, res) => {
   let errorCode = null;
   try {
     const username = req.user.user.username;
-    const experienceId = req.headers.experienceid;
-    const experience = req.body;
-console.log(experienceId)
+    const projectId = req.headers.projectid;
+    const project = req.body;
+console.log(projectId)
     // finding profile if exists
     const profile = await Profile.findOne({ username });
     if (!profile) {
@@ -14,26 +14,26 @@ console.log(experienceId)
       throw new Error("Profile not found");
     }
     let flag = true;
-    for (let i = 0; i < profile.experience.length; i++) {
-      if (profile.experience[i]._id != experienceId) {
+    for (let i = 0; i < profile.project.length; i++) {
+      if (profile.project[i]._id != projectId) {
         continue;
       }
       flag = false;
-      profile.experience[i] = experience;
+      profile.project[i] = project;
     }
     if (flag) {
       errorCode = 404;
-      throw new Error("Experience Not found");
+      throw new Error("Project Not found");
     }
     await profile
       .save()
       .then(() => {
         return res
           .status(200)
-          .json({ success: true, message: "Experience Edited" });
+          .json({ success: true, message: "Project Edited" });
       })
       .catch((err) => {
-        throw new Error("Can't edit Experience due to ", err.message);
+        throw new Error("Can't edit Project due to ", err.message);
       });
   } catch (err) {
     res.status(errorCode || 500).json({
@@ -44,4 +44,4 @@ console.log(experienceId)
   }
 };
 
-module.exports = editExperience;
+module.exports = editProject;
