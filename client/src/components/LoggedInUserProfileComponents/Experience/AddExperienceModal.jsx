@@ -89,11 +89,10 @@ export default function AddExperienceModal() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-label="modal-modal-title"
-        aria-describe="modal-modal-description"
+        aria-aria-labelledby="modal-modal-title"
+        aria-aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {JSON.stringify(date)}
 
           <Typography
             align="center"

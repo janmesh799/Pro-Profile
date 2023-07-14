@@ -11,6 +11,9 @@ const addExperience = require("./profile/addExperience");
 const deleteExperience = require("./profile/deleteExperience");
 const editEducation = require("./profile/editEducation");
 const editExperience = require("./profile/editExperience");
+const addProject = require("./profile/addProject");
+const editProject = require("./profile/editProject");
+const deleteProject = require("./profile/deleteProject");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -65,5 +68,23 @@ router.put("/editExperience", fetchUser, editExperience);
 //@Access: private
 //@data: headers({authToken, experienceId})
 router.delete("/deleteExperience", fetchUser, deleteExperience);
+
+//@Route: POST /api/profile/addProject
+//@Desc: adding new Project
+//@Access: private
+//@data: headers({authToken}), body({project})
+router.post("/addProject", fetchUser, addProject);
+
+//@Route: PUT /api/profile/editProject
+//@Desc: editing project
+//@Access: private
+//@data: headers({authToken, experienceId}), body({project})
+router.put("/editProject", fetchUser, editProject);
+
+//@Route: DELETE /api/profile/deleteProject
+//@Desc: deleting project
+//@Access: private
+//@data: headers({authToken, projectId})
+router.delete("/deleteProject", fetchUser, deleteProject);
 
 module.exports = router;

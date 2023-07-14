@@ -13,8 +13,12 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
-import { addEducation } from "../../../store/profile/profileSlice";
+import { addExperience } from "../../../store/profile/profileSlice";
 import { toast } from "react-toastify";
+import {
+  setMessage,
+  setMessageNull,
+} from "../../../store/application/applicationSlice";
 
 const style = {
   "@media (max-width: 480px)": {
@@ -37,13 +41,13 @@ const inputStyle = {
   marginTop: "0.75rem",
 };
 
-export default function AddEducationModal() {
+export default function AddExperienceModal() {
   const dispatch = useDispatch();
   const { authToken } = useSelector((state) => state.auth);
   const { message, isMessage } = useSelector((state) => state.application);
-  const [edu, setEdu] = useState({
-    institute: "",
-    course: "",
+  const [exp, setExp] = useState({
+    company: "",
+    position: "",
     tenure: {
       start: "",
       end: "",
@@ -52,20 +56,20 @@ export default function AddEducationModal() {
     description: "",
   });
   const [date, SetDate] = useState({
-    start: dayjs(edu.tenure.start),
-    end: dayjs(edu.tenure.end),
+    start: dayjs(exp.tenure.start),
+    end: dayjs(exp.tenure.end),
   });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    setEdu({ ...edu, [id]: value });
+    setExp({ ...exp, [id]: value });
   };
   const submitHandler = () => {
-    edu.tenure.start = date.start;
-    edu.tenure.end = date.end;
-    dispatch(addEducation({ authToken: authToken, education: edu }));
+    exp.tenure.start = date.start;
+    exp.tenure.end = date.end;
+    dispatch(addExperience({ authToken: authToken, experience: exp }));
     setOpen(false);
     setTimeout(function () {
       window.location.reload();
@@ -80,13 +84,13 @@ export default function AddEducationModal() {
         size="small"
         onClick={handleOpen}
       >
-        ADD EDUCATION
+        ADD EXPERIENCE
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-aria-labelledby="modal-modal-title"
-        aria-aria-describedby="modal-modal-description"
+        aria-label="modal-modal-title"
+        aria-describe="modal-modal-description"
       >
         <Box sx={style}>
           {JSON.stringify(date)}
@@ -97,7 +101,7 @@ export default function AddEducationModal() {
             variant="h6"
             component="h2"
           >
-            Add Education
+            Add Experience
           </Typography>
           <Container>
             <FormControl
@@ -110,28 +114,19 @@ export default function AddEducationModal() {
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.institute}
-                name="institute"
-                id="institute"
-                label="institute"
+                value={exp.company}
+                name="company"
+                id="company"
+                label="company"
                 variant="filled"
               />
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.course}
-                name="course"
-                id="course"
-                label="course"
-                variant="filled"
-              />
-              <TextField
-                sx={inputStyle}
-                onChange={handleOnChange}
-                value={edu.grade}
-                name="grade"
-                id="grade"
-                label="grade"
+                value={exp.position}
+                name="position"
+                id="position"
+                label="position"
                 variant="filled"
               />
               <div
@@ -167,7 +162,7 @@ export default function AddEducationModal() {
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.description}
+                value={exp.description}
                 name="description"
                 id="description"
                 label="description"

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import dayjs from "dayjs";
+import { useState } from "react";
 import {
   Typography,
   Modal,
@@ -8,12 +7,9 @@ import {
   TextField,
   FormControl,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Container } from "@mui/system";
 import { useSelector, useDispatch } from "react-redux";
-import { addEducation } from "../../../store/profile/profileSlice";
+import { addProject } from "../../../store/profile/profileSlice";
 import { toast } from "react-toastify";
 
 const style = {
@@ -36,37 +32,34 @@ const inputStyle = {
   margin: "auto",
   marginTop: "0.75rem",
 };
-
-export default function AddEducationModal() {
+export default function AddProjectModal() {
   const dispatch = useDispatch();
   const { authToken } = useSelector((state) => state.auth);
-  const { message, isMessage } = useSelector((state) => state.application);
-  const [edu, setEdu] = useState({
-    institute: "",
-    course: "",
-    tenure: {
-      start: "",
-      end: "",
+  const [tech, setTech] = useState("");
+  const [gitLink, setGitLink] = useState("");
+  const [liveLink, setLiveLink] = useState("");
+  const [proj, setProj] = useState({
+    title: "",
+    links: {
+      github: "",
+      live: "",
     },
-    grade: "",
+    technologies: "",
     description: "",
-  });
-  const [date, SetDate] = useState({
-    start: dayjs(edu.tenure.start),
-    end: dayjs(edu.tenure.end),
   });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    setEdu({ ...edu, [id]: value });
+    setProj({ ...proj, [id]: value });
   };
   const submitHandler = () => {
-    edu.tenure.start = date.start;
-    edu.tenure.end = date.end;
-    dispatch(addEducation({ authToken: authToken, education: edu }));
+    proj.technologies = tech.split(",");
+    proj.links = { github: gitLink, live: liveLink };
+    dispatch(addProject({ authToken: authToken, project: proj }));
     setOpen(false);
+    toast("project added successfully. wait! window is refreshing");
     setTimeout(function () {
       window.location.reload();
     }, 3000);
@@ -80,7 +73,7 @@ export default function AddEducationModal() {
         size="small"
         onClick={handleOpen}
       >
-        ADD EDUCATION
+        ADD PROJECT
       </Button>
       <Modal
         open={open}
@@ -89,15 +82,13 @@ export default function AddEducationModal() {
         aria-aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {JSON.stringify(date)}
-
           <Typography
             align="center"
             id="modal-modal-title"
             variant="h6"
             component="h2"
           >
-            Add Education
+            Add Project
           </Typography>
           <Container>
             <FormControl
@@ -110,64 +101,49 @@ export default function AddEducationModal() {
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.institute}
-                name="institute"
-                id="institute"
-                label="institute"
+                value={proj.title}
+                name="title"
+                id="title"
+                label="title"
                 variant="filled"
               />
               <TextField
                 sx={inputStyle}
-                onChange={handleOnChange}
-                value={edu.course}
-                name="course"
-                id="course"
-                label="course"
-                variant="filled"
-              />
-              <TextField
-                sx={inputStyle}
-                onChange={handleOnChange}
-                value={edu.grade}
-                name="grade"
-                id="grade"
-                label="grade"
-                variant="filled"
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  margin: "auto",
-                  marginTop: "1rem",
+                onChange={(e) => {
+                  setTech(e.target.value);
                 }}
-              >
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="start Date"
-                    value={date.start}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["start"]: newValue })
-                    }
-                  />
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="End Date"
-                    value={date.end}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["end"]: newValue })
-                    }
-                  />
-                </LocalizationProvider>
-              </div>
+                value={tech}
+                name="technologies"
+                id="technologies"
+                label="technologies (seperated by commas)"
+                variant="filled"
+              />
+              <TextField
+                sx={inputStyle}
+                onChange={(e) => {
+                  setGitLink(e.target.value);
+                }}
+                value={gitLink}
+                name="github_link"
+                id="github_link"
+                label="github_link"
+                variant="filled"
+              />
+              <TextField
+                sx={inputStyle}
+                onChange={(e) => {
+                  setLiveLink(e.target.value);
+                }}
+                value={liveLink}
+                name="live_link"
+                id="live_link"
+                label="live_link"
+                variant="filled"
+              />
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={edu.description}
+                value={proj.description}
                 name="description"
                 id="description"
                 label="description"
