@@ -5,56 +5,46 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import EditExperienceModal from "./EditExperienceModal";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteExperience,
-} from "../../../store/profile/profileSlice";
+import { deleteAchievement } from "../../../store/profile/profileSlice";
+import EditAchievementModal from "./EditAchievementModal";
 
-const formatDate = (isoDateString) => {
-  const date = new Date(isoDateString);
-  const month = date.toLocaleString("default", { month: "long" });
-  const year = date.getFullYear();
-  return `${month}, ${year}`;
-};
-
-export default function ExperienceCardComponent(props) {
-  const exp = props.experience;
+export default function AchievementCardComponent(props) {
+  const achieve = props.achievement;
   const dispatch = useDispatch();
   const { authToken } = useSelector((state) => state.auth);
-  const deleteExperienceHandler = (id) => {
-    dispatch(deleteExperience({ experienceId: exp._id, authToken: authToken }));
-    setTimeout(function(){
+  const deleteAchievementHandler = (id) => {
+    dispatch(
+      deleteAchievement({ achievementId: achieve._id, authToken: authToken })
+    );
+    setTimeout(function () {
       window.location.reload();
     }, 3000);
-    
-    
   };
   const card = (
     <>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {formatDate(exp.tenure.start) + " - " + formatDate(exp.tenure.end)}
+          {achieve.index}
         </Typography>
         <Typography variant="h5" component="div">
-          {exp.company}
+          {achieve.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {exp.position}
+          {achieve.description}
         </Typography>
-        <Typography variant="body2">{exp.description}</Typography>
       </CardContent>
       <CardActions sx={{ display: "flex", flexDirection: "column" }}>
         <Button
           sx={{ margin: "1rem 0rem 1rem 0rem" }}
           variant="outlined"
-          onClick={() => deleteExperienceHandler(exp._id)}
+          onClick={() => deleteAchievementHandler(achieve._id)}
           color="error"
           size="small"
         >
-          DELETE Experience
+          DELETE Achievement
         </Button>
-        <EditExperienceModal experience={exp} />
+        <EditAchievementModal achievement={achieve} />
       </CardActions>
     </>
   );

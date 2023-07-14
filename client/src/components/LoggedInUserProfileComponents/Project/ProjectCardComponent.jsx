@@ -31,9 +31,9 @@ export default function ProjectCardComponent(props) {
   const { authToken } = useSelector((state) => state.auth);
   const deleteProjectHandler = (id) => {
     dispatch(deleteProject({ projectId: proj._id, authToken: authToken }));
-    // setTimeout(function () {
-    //   window.location.reload();
-    // }, 3000);
+    setTimeout(function () {
+      window.location.reload();
+    }, 3000);
   };
   const card = (
     <>
@@ -49,7 +49,12 @@ export default function ProjectCardComponent(props) {
         </Typography>
         <Typography variant="body2">{proj.description}</Typography>
         <Typography
-          sx={{ margin: "1rem 0rem 0rem 0rem", display: "flex", flexWrap: "wrap",justifyContent:"center" }}
+          sx={{
+            margin: "1rem 0rem 0rem 0rem",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
           variant="body2"
         >
           <Link to={proj.links.github}>

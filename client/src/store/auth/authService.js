@@ -47,7 +47,6 @@ const getUser = async (authToken) => {
         // console.log(config)
 
         const response = await axios.get(API_URL + '/getuser', config);
-        console.log("response.data = ", response.data)
         return response.data;
 
     } catch (err) {
