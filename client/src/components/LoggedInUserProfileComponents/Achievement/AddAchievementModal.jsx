@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { useDispatch, useSelector } from "react-redux";
 import {
   Typography,
   Modal,
@@ -13,8 +12,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Container } from "@mui/system";
-import { editExperience } from "../../../store/profile/profileSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { addAchievement, addExperience } from "../../../store/profile/profileSlice";
 import { toast } from "react-toastify";
+import {
+  setMessage,
+  setMessageNull,
+} from "../../../store/application/applicationSlice";
 
 const style = {
   "@media (max-width: 480px)": {
@@ -37,47 +41,46 @@ const inputStyle = {
   marginTop: "0.75rem",
 };
 
-export default function EditExperienceModal(props) {
+export default function AddAchievementModal() {
   const dispatch = useDispatch();
   const { authToken } = useSelector((state) => state.auth);
-  const [exp, setExp] = useState(props.experience);
-  const [date, SetDate] = useState({
-    start: dayjs(exp.tenure.start),
-    end: dayjs(exp.tenure.end),
+  const [achieve, setAchieve] = useState({
+    index: null,
+    title: "",
+    description: "",
   });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleOnChange = (e) => {
     const { id, value } = e.target;
-    setExp({ ...exp, [id]: value });
+    setAchieve({ ...achieve, [id]: value });
   };
   const submitHandler = () => {
-    const experienceId = exp._id;
-    exp.tenure = date;
-    dispatch(editExperience({ experienceId, experience: exp, authToken }));
-    handleClose();
-    toast("edited! wait window is refreshing");
+    const number = new Number(achieve.index);
+    setAchieve({ ...achieve, ["index"]: number });
+    dispatch(addAchievement({ authToken: authToken, achievement: achieve }));
+    setOpen(false);
     setTimeout(function () {
       window.location.reload();
     }, 3000);
   };
   return (
-    <div>
+    <div style={{ display: "flex", margin: "auto 0rem auto 0rem" }}>
       <Button
         sx={{ margin: "0rem 0rem 1rem 0rem" }}
-        variant="outlined"
+        variant="contained"
         color="primary"
         size="small"
         onClick={handleOpen}
       >
-        EDIT Experience
+        ADD ACHIEVEMENT
       </Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-label="modal-modal-title"
+        aria-describe="modal-modal-description"
       >
         <Box sx={style}>
           <Typography
@@ -86,7 +89,7 @@ export default function EditExperienceModal(props) {
             variant="h6"
             component="h2"
           >
-            Edit Experience
+            Add Achievement
           </Typography>
           <Container>
             <FormControl
@@ -99,64 +102,26 @@ export default function EditExperienceModal(props) {
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={exp.company}
-                name="company"
-                id="company"
-                label="company"
+                value={achieve.index}
+                name="index"
+                id="index"
+                label="index"
                 variant="filled"
               />
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={exp.position}
-                name="position"
-                id="position"
-                label="position"
+                value={achieve.title}
+                name="title"
+                id="title"
+                label="title"
                 variant="filled"
               />
+
               <TextField
                 sx={inputStyle}
                 onChange={handleOnChange}
-                value={exp.grade}
-                name="grade"
-                id="grade"
-                label="grade"
-                variant="filled"
-              />
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  margin: "auto",
-                  marginTop: "1rem",
-                }}
-              >
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="start Date"
-                    value={date.start}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["start"]: newValue })
-                    }
-                  />
-                  <DatePicker
-                    sx={{ margin: "0rem 0.5rem 0rem 0.5rem" }}
-                    format="DD-MM-YYYY"
-                    label="End Date"
-                    value={date.end}
-                    onChange={(newValue) =>
-                      SetDate({ ...date, ["end"]: newValue })
-                    }
-                  />
-                </LocalizationProvider>
-              </div>
-              <TextField
-                sx={inputStyle}
-                onChange={handleOnChange}
-                value={exp.description}
+                value={achieve.description}
                 name="description"
                 id="description"
                 label="description"
@@ -169,7 +134,7 @@ export default function EditExperienceModal(props) {
                 sx={{ width: "30%", margin: "auto", marginTop: "1.5rem" }}
                 variant="contained"
               >
-                Edit
+                Add
               </Button>
             </FormControl>
           </Container>

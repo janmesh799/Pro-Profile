@@ -203,17 +203,100 @@ const editProject = async ({ projectId, project, authToken }) => {
     throw new Error(err.message);
   }
 };
+
+const editSkills = async ({ skills, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+      },
+    };
+    const response = await axios.put(API_URL + "/editskills", skills, config);
+    if (response.data.success === true) {
+      toast.done("edited skills");
+    }
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+const addAchievement = async ({ achievement, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+      },
+    };
+    const response = await axios.post(
+      API_URL + "/addAchievement",
+      achievement,
+      config
+    );
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+const deleteAchievement = async ({ achievementId, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+        achievementId: achievementId,
+      },
+    };
+    const response = await axios.delete(API_URL + "/deleteAchievement", config);
+    if (response.data.success === true) {
+      toast.done("deleted achievement");
+    }
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
+const editAchievement = async ({ achievementId, achievement, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+        achievementId: achievementId,
+      },
+    };
+    const response = await axios.put(
+      API_URL + "/editAchievement",
+      achievement,
+      config
+    );
+    if (response.data.success === true) {
+      toast.done("edited achievement");
+    }
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
 const profileService = {
   getProfile,
   addEducation,
   addExperience,
   addProject,
+  addAchievement,
   deleteEducation,
   deleteProject,
   deleteExperience,
+  deleteAchievement,
   editEducation,
   editExperience,
   editProject,
+  editSkills,
+  editAchievement,
 };
 
 export default profileService;

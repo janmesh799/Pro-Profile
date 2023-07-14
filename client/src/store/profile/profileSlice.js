@@ -260,6 +260,101 @@ export const editProject = createAsyncThunk(
     }
   }
 );
+export const editSkills = createAsyncThunk(
+  "profile/editSkills",
+  async ({ skills, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.editSkills({
+        skills,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const addAchievement = createAsyncThunk(
+  "profile/addAchievement",
+  async ({ achievement, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.addAchievement({
+        achievement,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+export const deleteAchievement = createAsyncThunk(
+  "profile/deleteAchievement",
+  async ({ achievementId, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.deleteAchievement({
+        achievementId,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editAchievement = createAsyncThunk(
+  "profile/editAchievement",
+  async ({ achievementId, achievement, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.editAchievement({
+        achievementId,
+        achievement,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const profileSlice = createSlice({
   name: "profile",

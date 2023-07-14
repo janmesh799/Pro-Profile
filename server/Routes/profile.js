@@ -14,6 +14,10 @@ const editExperience = require("./profile/editExperience");
 const addProject = require("./profile/addProject");
 const editProject = require("./profile/editProject");
 const deleteProject = require("./profile/deleteProject");
+const editSkills = require("./profile/editSkills");
+const addAchievement = require("./profile/addAchievement");
+const editAchievement = require("./profile/editAchievement");
+const deleteAchievement = require("./profile/deleteAchievement");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -78,7 +82,7 @@ router.post("/addProject", fetchUser, addProject);
 //@Route: PUT /api/profile/editProject
 //@Desc: editing project
 //@Access: private
-//@data: headers({authToken, experienceId}), body({project})
+//@data: headers({authToken, projectId}), body({project})
 router.put("/editProject", fetchUser, editProject);
 
 //@Route: DELETE /api/profile/deleteProject
@@ -86,5 +90,29 @@ router.put("/editProject", fetchUser, editProject);
 //@Access: private
 //@data: headers({authToken, projectId})
 router.delete("/deleteProject", fetchUser, deleteProject);
+
+//@Route: PUT /api/profile/editSkills
+//@Desc: editing skills
+//@Access: private
+//@data: headers({authToken}), body({skills})
+router.put("/editSkills", fetchUser, editSkills);
+
+//@Route: POST /api/profile/addAchievement
+//@Desc: adding new Achievement
+//@Access: private
+//@data: headers({authToken}), body({achievement})
+router.post("/addAchievement", fetchUser, addAchievement);
+
+//@Route: PUT /api/profile/editAchievement
+//@Desc: editing achievement
+//@Access: private
+//@data: headers({authToken, achievementId}), body({achievement})
+router.put("/editAchievement", fetchUser, editAchievement);
+
+//@Route: DELETE /api/profile/deleteAchievement
+//@Desc: deleting achievement
+//@Access: private
+//@data: headers({authToken, achievementId})
+router.delete("/deleteAchievement", fetchUser, deleteAchievement);
 
 module.exports = router;
