@@ -59,6 +59,35 @@ export const deleteEducation = createAsyncThunk('profile/deleteEducation', async
 })
 
 
+
+export const addExperience = createAsyncThunk('profile/addExperience', async ({experience, authToken}, thunkAPI) => {
+    try {
+        const response = await profileService.addExperience({experience,authToken});
+        console.log(response)
+        if (response.success) return response;
+        else {
+            throw new Error(response.message)
+        }
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+export const deleteExperience = createAsyncThunk('profile/deleteExperience', async ({experienceId, authToken}, thunkAPI) => {
+    try {
+        const response = await profileService.deleteExperience({experienceId,authToken});
+        console.log(response)
+        if (response.success) return response;
+        else {
+            throw new Error(response.message)
+        }
+    } catch (error) {
+        const message = (error.response && error.response.data && error.response.data.message) || (error.message) || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+
+
 export const profileSlice = createSlice({
     name: 'profile',
     initialState,
@@ -79,7 +108,6 @@ export const profileSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getProfile.pending, (state) => {
-
             })
             .addCase(getProfile.fulfilled, (state, action) => {
                 if (action.payload.profile.socials) { state.socials = action.payload.profile.socials }

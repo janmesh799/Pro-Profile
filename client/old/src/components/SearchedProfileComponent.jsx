@@ -2,18 +2,18 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Container } from '@mui/system';
 import { Button } from '@mui/material';
-import BioComponent from './profileComponents/BioComponent';
-import EducationComponent from './profileComponents/EducationComponent';
-import ProjectsComponent from './profileComponents/ProjectsComponent';
-import AchievementsComponent from './profileComponents/AchievementsComponent';
-import ExperienceComponent from './profileComponents/ExperienceComponent';
-import SkillsComponent from './profileComponents/SkillsComponent';
-import SocialsComponent from "./profileComponents/SocialsComponents"
+import BioComponent from './searched_user_profile/BioComponent';
+import EducationComponent from './searched_user_profile/EducationComponent';
+import ProjectsComponent from './searched_user_profile/ProjectsComponent';
+import AchievementsComponent from './searched_user_profile/AchievementsComponent';
+import ExperienceComponent from './searched_user_profile/ExperienceComponent';
+import SkillsComponent from './searched_user_profile/SkillsComponent';
+import SocialsComponent from "./searched_user_profile/SocialsComponents"
 import { useSelector } from 'react-redux';
 
 
 
-const ProfileComponent = () => {
+const SearchedProfileComponent = () => {
     const { isFound } = useSelector(state => state.profile);
     const ELEMENTS = { EDUCATION: "EDUCATION", PROJECTS: "PROJECTS", ACHIEVEMENTS: "ACHIEVEMENTS", SKILLS: "SKILLS", EXPERIENCE: "EXPERIENCE", SOCIALS: "SOCIALS" };
     const [currentElement, setCurrentElement] = useState(ELEMENTS.EDUCATION)
@@ -101,4 +101,4 @@ const ProfileComponent = () => {
     }
 }
 
-export default ProfileComponent
+export default SearchedProfileComponent

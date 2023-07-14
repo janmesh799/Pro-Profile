@@ -19,6 +19,7 @@ const loginUser = async (req, res) => {
 
     // comparing passwords
     const passwordCompare = await bcrypt.compare(password, user.password);
+    console.log(passwordCompare);
     if (!passwordCompare) {
       errorCode = 403;
       throw new Error("Please try to login with correct credentials");

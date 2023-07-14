@@ -59,10 +59,49 @@ const deleteEducation = async({educationId, authToken})=>{
         throw new Error(err.message);
     }
 }
+
+const addExperience = async ({ experience, authToken }) => {
+    try {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "authToken": authToken
+            }
+        }
+        console.log(config)
+        console.log(experience)
+        const response = await axios.post(API_URL + "/addExperience", {experience}, config);
+        return response.data;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
+
+const deleteExperience = async({experienceId, authToken})=>{
+    try {
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "authToken": authToken,
+                "experienceId":experienceId
+            }
+        }
+        console.log(config)
+        const response = await axios.delete(API_URL + "/deleteExperience", config);
+        if(response.data.success === true){
+            toast.done("deleted experience")
+        }
+        return response.data;
+    } catch (err) {
+        throw new Error(err.message);
+    }
+}
 const profileService = {
     getProfile,
     addEducation,
-    deleteEducation
+    addExperience,
+    deleteEducation,
+    deleteExperience
 }
 
 export default profileService

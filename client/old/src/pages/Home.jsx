@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import SearchProfileBar from '../components/SearchProfileBar'
+import SearchProfile from '../components/SearchProfile'
 import { useLocation } from 'react-router-dom'
+import SearchedProfileComponent from '../components/SearchedProfileComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPage } from '../store/application/applicationSlice'
 import { getProfile } from '../store/profile/profileSlice'
 import { getUser } from '../store/auth/authSlice'
-import SearchedProfile from '../components/SearchedProfile'
 
 const Home = () => {
     const { authToken, user } = useSelector(state => state.auth);
@@ -28,7 +28,7 @@ const Home = () => {
     return (
         <div style={{ margin: "0.5rem" }}>
 
-            {(username === '' || username === null) ? <SearchProfileBar /> : (<SearchedProfile />)}
+            {(username === '' || username === null) ? <SearchProfile /> : (<SearchedProfileComponent />)}
 
         </div>
     )

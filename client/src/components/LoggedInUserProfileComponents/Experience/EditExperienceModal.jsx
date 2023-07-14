@@ -1,14 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dayjs from 'dayjs';
 import { Typography, Modal, Button, Box, TextField, FormControl } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Container } from '@mui/system';
-import { useSelector, useDispatch } from "react-redux"
-import { addEducation } from '../../store/profile/profileSlice';
-import { toast } from 'react-toastify';
-import { setMessage, setMessageNull } from '../../store/application/applicationSlice';
 
 const style = {
     '@media (max-width: 480px)': {
@@ -32,42 +28,25 @@ const inputStyle = {
 }
 
 
-export default function AddEducationModal() {
-    const dispatch = useDispatch();
-    const { authToken } = useSelector(state => state.auth);
-    const { message, isMessage } = useSelector(state => state.application)
-    const [edu, setEdu] = useState({
-        institute: '',
-        course: "",
-        tenure: {
-            start: "",
-            end: ""
-        },
-        grade: "",
-        description: ""
-    });
+export default function EditExperienceModal(props) {
+    const [exp, setEdu] = useState(props.experience);
     const [date, SetDate] = useState({
-        start: dayjs(edu.tenure.start),
-        end: dayjs(edu.tenure.end)
+        start: dayjs(exp.tenure.start),
+        end: dayjs(exp.tenure.end)
     })
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleOnChange = (e) => {
         const { id, value } = e.target;
-        setEdu({ ...edu, [id]: value })
+        setEdu({ ...exp, [id]: value })
     }
     const submitHandler = () => {
-        edu.tenure.start = date.start;
-        edu.tenure.end = date.end;
-        dispatch(addEducation({ authToken: authToken, education: edu }));
-        setOpen(false);
-        toast.done("Education added")
-
+        alert("edit button clicked")    
     }
     return (
-        <div style={{ display: "flex", margin: "auto 0rem auto 0rem" }}>
-            <Button sx={{ margin: "0rem 0rem 1rem 0rem" }} variant='contained' color='primary' size="small" onClick={handleOpen}>ADD EDUCATION</Button>
+        <div>
+            <Button sx={{ margin: "0rem 0rem 1rem 0rem" }} variant='outlined' color='primary' size="small" onClick={handleOpen}>EDIT Experience</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -75,16 +54,14 @@ export default function AddEducationModal() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-            {JSON.stringify(date)}
-
                     <Typography align='center' id="modal-modal-title" variant="h6" component="h2">
-                        Add Education
+                        Edit Experience
                     </Typography>
                     <Container  >
                         <FormControl sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                            <TextField sx={inputStyle} onChange={handleOnChange} value={edu.institute} name="institute" id="institute" label="institute" variant="filled" />
-                            <TextField sx={inputStyle} onChange={handleOnChange} value={edu.course} name="course" id="course" label="course" variant="filled" />
-                            <TextField sx={inputStyle} onChange={handleOnChange} value={edu.grade} name="grade" id="grade" label="grade" variant="filled" />
+                            <TextField sx={inputStyle} onChange={handleOnChange} value={exp.company} name="company" id="company" label="company" variant="filled" />
+                            <TextField sx={inputStyle} onChange={handleOnChange} value={exp.position} name="position" id="position" label="position" variant="filled" />
+                            <TextField sx={inputStyle} onChange={handleOnChange} value={exp.grade} name="grade" id="grade" label="grade" variant="filled" />
                             <div style={{ display: "flex", flexDirection: "row", width: "100%", margin: "auto", marginTop: "1rem" }}>
 
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -94,8 +71,8 @@ export default function AddEducationModal() {
                                 </LocalizationProvider>
 
                             </div>
-                            <TextField sx={inputStyle} onChange={handleOnChange} value={edu.description} name="description" id="description" label="description" variant="filled" />
-                            <Button onClick={submitHandler} type="submit" color="secondary" sx={{ width: "30%", margin: "auto", marginTop: "1.5rem" }} variant="contained">Add</Button>
+                            <TextField sx={inputStyle} onChange={handleOnChange} value={exp.description} name="description" id="description" label="description" variant="filled" />
+                            <Button onClick={submitHandler} type="submit" color="secondary" sx={{ width: "30%", margin: "auto", marginTop: "1.5rem" }} variant="contained">Edit</Button>
                         </FormControl>
                     </Container>
                 </Box>
