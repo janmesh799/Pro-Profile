@@ -114,15 +114,6 @@ export default function EditExperienceModal(props) {
                 label="position"
                 variant="filled"
               />
-              <TextField
-                sx={inputStyle}
-                onChange={handleOnChange}
-                value={exp.grade}
-                name="grade"
-                id="grade"
-                label="grade"
-                variant="filled"
-              />
               <div
                 style={{
                   display: "flex",
