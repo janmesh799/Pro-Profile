@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const secKey = process.env.SECKEY;
 const bcrypt = require("bcryptjs");
 const User = require("../../Models/User");
+const Profile = require("../../Models/profile");
 
 const createUser = async (req, res) => {
   let errorCode = null;
@@ -29,6 +30,16 @@ const createUser = async (req, res) => {
     await newUser
       .save()
       .then((newUser) => {
+        const profile = new Profile({
+          bio: {
+            name: newUser.name,
+            email: newUser.email,
+          },
+          name: newUser.name,
+          email: newUser.email,
+          username: newUser.username,
+        });
+        profile.save();
         // creating authentication token
         const data = {
           user: {
@@ -41,27 +52,23 @@ const createUser = async (req, res) => {
         const authToken = jwt.sign(data, secKey);
 
         // sending response
-        res
-          .status(200)
-          .json({
-            success: true,
-            message: "User Created successfully",
-            authToken,
-            newUser,
-          });
+        res.status(200).json({
+          success: true,
+          message: "User Created successfully",
+          authToken,
+          newUser,
+        });
       })
       .catch((err) => {
         throw new Error(err.message);
       });
   } catch (err) {
     // sending response with errorCode 500 and error message if any error raised
-    return res
-      .status(errorCode || 500)
-      .json({
-        success: false,
-        message: "Internal server Error",
-        error: err.message,
-      });
+    return res.status(errorCode || 500).json({
+      success: false,
+      message: "Internal server Error",
+      error: err.message,
+    });
   }
 };
 module.exports = createUser;

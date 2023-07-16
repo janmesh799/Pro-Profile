@@ -282,6 +282,25 @@ const editAchievement = async ({ achievementId, achievement, authToken }) => {
     throw new Error(err.message);
   }
 };
+
+const editSocials = async ({ socials, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+      },
+    };
+    const response = await axios.put(API_URL + "/editSocials", socials, config);
+    if (response.data.success === true) {
+      toast.done("edited socials");
+    }
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 const profileService = {
   getProfile,
   addEducation,
@@ -297,6 +316,7 @@ const profileService = {
   editProject,
   editSkills,
   editAchievement,
+  editSocials,
 };
 
 export default profileService;
