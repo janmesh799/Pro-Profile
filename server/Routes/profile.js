@@ -19,6 +19,7 @@ const addAchievement = require("./profile/addAchievement");
 const editAchievement = require("./profile/editAchievement");
 const deleteAchievement = require("./profile/deleteAchievement");
 const editSocials = require("./profile/editSocials");
+const editBio = require("./profile/editBio");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -121,5 +122,11 @@ router.delete("/deleteAchievement", fetchUser, deleteAchievement);
 //@Access: private
 //@data: headers({authToken}), body({socials})
 router.put("/editSocials", fetchUser, editSocials);
+
+//@Route: PUT /api/profile/editBio
+//@Desc: editing bio
+//@Access: private
+//@data: headers({authToken}), body({bio})
+router.put("/editBio", fetchUser, editBio);
 
 module.exports = router;

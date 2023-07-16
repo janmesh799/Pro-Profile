@@ -23,6 +23,7 @@ import AchievementCardComponent from "../components/LoggedInUserProfileComponent
 import AddAchievementModal from "../components/LoggedInUserProfileComponents/Achievement/AddAchievementModal";
 import SocialComponent from "../components/LoggedInUserProfileComponents/socials/SocialComponent";
 import EditSocialsComponent from "../components/LoggedInUserProfileComponents/socials/EditSocialsComponent";
+import BioComponent from "../components/LoggedInUserProfileComponents/Bio/BioComponent";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -143,7 +144,7 @@ const Profile = () => {
                   textAlign: "center",
                 }}
               >
-                {profile.bio.about}
+                <BioComponent bio={profile.bio} />
               </AccordionDetails>
             </Accordion>
             <Accordion

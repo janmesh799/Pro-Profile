@@ -53,7 +53,7 @@ export default function AchievementCardComponent(props) {
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",
-          boxShadow: "10px 5px 5px rgba(251, 206, 177,0.5)",
+          boxShadow: "10px 5px 5px rgba(0, 255, 0,0.5)",
         }}
         variant="outlined"
       >

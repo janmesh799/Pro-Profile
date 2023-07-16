@@ -49,7 +49,7 @@ const SingleComponent = (props) => {
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",
-          boxShadow: "10px 5px 5px rgba(34,139,34,0.5)",
+          boxShadow: "10px 5px 5px rgba(255, 255, 0,0.5)",
         }}
         variant="outlined"
       >
