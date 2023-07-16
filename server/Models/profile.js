@@ -12,7 +12,7 @@ const educationSchema = new Schema({
     },
     end: {
       type: Date,
-    }
+    },
   },
   course: {
     type: String,
@@ -23,7 +23,7 @@ const educationSchema = new Schema({
   },
   description: {
     type: String,
-  }
+  },
 });
 
 const projectSchema = new Schema({
@@ -40,11 +40,11 @@ const projectSchema = new Schema({
     },
     live: {
       type: String,
-    }
+    },
   },
   technologies: {
     type: [String],
-  }
+  },
 });
 
 const achievementSchema = new Schema({
@@ -65,9 +65,9 @@ const achievementSchema = new Schema({
     },
     url: {
       type: String,
-    }
-  }
-})
+    },
+  },
+});
 
 const experienceSchema = new Schema({
   company: {
@@ -80,7 +80,7 @@ const experienceSchema = new Schema({
     },
     end: {
       type: Date,
-    }
+    },
   },
   position: {
     type: String,
@@ -88,9 +88,8 @@ const experienceSchema = new Schema({
   },
   description: {
     type: String,
-  }
+  },
 });
-
 
 const ProfileSchema = new Schema({
   username: {
@@ -107,31 +106,47 @@ const ProfileSchema = new Schema({
     type: {
       name: {
         type: String,
+        default: "",
         require: true,
       },
       about: {
         type: String,
+        default: "",
       },
       profilePic: {
         type: String,
+        default: "",
       },
       contact: {
         phone: {
           type: String,
+          default: "",
         },
         place: {
           type: String,
-        }
+          default: "",
+        },
       },
       gender: {
         type: String,
+        default: "",
         require: true,
       },
       email: {
-        type: String
-      }
+        type: String,
+        default: "",
+      },
     },
-    default:{}
+    default: {
+      name: "",
+      about: "",
+      contact: {
+        phone: "",
+        place: "",
+      },
+      gender: "",
+      email: "",
+    },
   },
 
   education: {
@@ -153,81 +168,116 @@ const ProfileSchema = new Schema({
     github: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the github profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
+    },
+    leetcode: {
+      username: {
+        type: String,
+        default: "Not available",
+      },
+      description: {
+        type: String, //any description about the github profile
+        default: "",
+      },
+      url: {
+        type: String,
+        default: "",
+      },
     },
     linkedin: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the github profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
     },
     codechef: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the codechef profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
     },
     codeforces: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the codeforces profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
     },
     hackerrank: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the hackerrank profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
     },
     hackerearth: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the hackerearth profile
+        default: "",
       },
       url: {
         type: String,
-      }
+        default: "",
+      },
     },
     geeksforgeeks: {
       username: {
         type: String,
+        default: "Not available",
       },
       description: {
         type: String, //any description about the geeksforgeeks profile
+        default: "",
       },
       url: {
         type: String,
-      }
-    }
-  }
+        default: "",
+      },
+    },
+  },
 });
 
 const profile = mongoose.model("profile", ProfileSchema);

@@ -1,9 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
@@ -13,6 +11,7 @@ const SocialComponent = (props) => {
     <div style={{display:"flex", flexWrap:"wrap", justifyContent:"center"}}>
       <SingleComponent title="GitHub" icon="fa-brands fa-github" social={socials.github} />
       <SingleComponent title="LinkedIn" icon="fa-brands fa-linkedin" social={socials.linkedin} />
+      <SingleComponent title="LeetCode" icon="fa-solid fa-code" social={socials.leetcode} />
       <SingleComponent title="CodeChef" icon="fa-solid fa-code" social={socials.codechef} />
       <SingleComponent title="CodeForces" icon="fa-solid fa-code" social={socials.codeforces} />
       <SingleComponent title="HackerRank" icon="fa-brands fa-hackerrank" social={socials.hackerrank} />

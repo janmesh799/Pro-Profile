@@ -356,6 +356,30 @@ export const editAchievement = createAsyncThunk(
   }
 );
 
+export const editSocials = createAsyncThunk(
+  "profile/editSocials",
+  async ({ socials, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.editSocials({
+        socials,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 export const profileSlice = createSlice({
   name: "profile",
   initialState,
