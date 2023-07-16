@@ -64,7 +64,7 @@ export default function EducationCardComponent(props) {
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",
-          boxShadow: "10px 5px 5px rgba(82, 113, 255,0.5)",
+          boxShadow: "10px 5px 5px rgba(148, 0, 211,0.5)",
         }}
         variant="outlined"
       >

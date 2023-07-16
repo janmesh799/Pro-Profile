@@ -300,6 +300,23 @@ const editSocials = async ({ socials, authToken }) => {
     throw new Error(err.message);
   }
 };
+const editBio = async ({ bio, authToken }) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        authToken: authToken,
+      },
+    };
+    const response = await axios.put(API_URL + "/editBio", bio, config);
+    if (response.data.success === true) {
+      toast.done("edited bio");
+    }
+    return response.data;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
 
 const profileService = {
   getProfile,
@@ -317,6 +334,7 @@ const profileService = {
   editSkills,
   editAchievement,
   editSocials,
+  editBio
 };
 
 export default profileService;

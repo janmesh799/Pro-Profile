@@ -379,6 +379,29 @@ export const editSocials = createAsyncThunk(
     }
   }
 );
+export const editBio = createAsyncThunk(
+  "profile/editBio",
+  async ({ bio, authToken }, thunkAPI) => {
+    try {
+      const response = await profileService.editBio({
+        bio,
+        authToken,
+      });
+      if (response.success) return response;
+      else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const profileSlice = createSlice({
   name: "profile",
