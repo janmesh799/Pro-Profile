@@ -10,7 +10,16 @@ const formatDate = (isoDateString) => {
   const year = date.getFullYear();
   return `${month}, ${year}`;
 };
-
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+      minWidth:"80%",
+      maxWidth:"100%"
+    },
+    minWidth: "30%" , 
+    maxWidth:"45%"
+  }
+}
 export default function EducationCard(props) {
   const edu = props.education;
   const card = (
@@ -33,7 +42,7 @@ export default function EducationCard(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "20%" , maxWidth:"40%"}}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0.5rem 1rem 0.5rem",

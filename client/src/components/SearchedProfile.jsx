@@ -24,22 +24,22 @@ const SearchedProfile2 = () => {
           Basic Details
         </Typography>
         <div style={{ display: "flex", flexWrap: "wrap", margin: "0 15%" }}>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>Name: </b> &nbsp;{profile.bio.name}
           </p>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>About: </b> &nbsp;{profile.bio.about}
           </p>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>Email: </b> &nbsp;{profile.bio.email}
           </p>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>Gender: </b> &nbsp;{profile.bio.gender}
           </p>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>Phone: </b> &nbsp;{profile.bio.contact.phone}
           </p>
-          <p style={{ width: "40%" }}>
+          <p style={{ width: "100%" }}>
             <b>Place: </b> &nbsp;{profile.bio.contact.place}
           </p>
         </div>

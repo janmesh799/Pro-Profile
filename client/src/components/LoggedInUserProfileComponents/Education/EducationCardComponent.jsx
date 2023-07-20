@@ -17,6 +17,15 @@ const formatDate = (isoDateString) => {
   return `${month}, ${year}`;
 };
 
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%"
+  }
+}
+
 export default function EducationCardComponent(props) {
   const edu = props.education;
   const dispatch = useDispatch();
@@ -60,7 +69,7 @@ export default function EducationCardComponent(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "30%" , maxWidth:"45%"}}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",

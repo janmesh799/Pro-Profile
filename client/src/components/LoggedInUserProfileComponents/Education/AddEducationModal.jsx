@@ -89,7 +89,6 @@ export default function AddEducationModal() {
         aria-aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          {JSON.stringify(date)}
 
           <Typography
             align="center"
