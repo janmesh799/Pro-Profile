@@ -3,6 +3,16 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%"
+  }
+}
+
 export default function AchievementCard(props) {
   const achieve = props.achievement;
   const card = (
@@ -21,7 +31,7 @@ export default function AchievementCard(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "20%", maxWidth: "40%" }}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0.5rem 1rem 0.5rem",

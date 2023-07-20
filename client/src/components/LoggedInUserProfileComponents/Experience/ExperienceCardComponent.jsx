@@ -11,13 +11,22 @@ import {
   deleteExperience,
 } from "../../../store/profile/profileSlice";
 
+
+
 const formatDate = (isoDateString) => {
   const date = new Date(isoDateString);
   const month = date.toLocaleString("default", { month: "long" });
   const year = date.getFullYear();
   return `${month}, ${year}`;
 };
-
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%"
+  }
+}
 export default function ExperienceCardComponent(props) {
   const exp = props.experience;
   const dispatch = useDispatch();
@@ -59,7 +68,7 @@ export default function ExperienceCardComponent(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "30%", maxWidth: "45%" }}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",

@@ -12,7 +12,14 @@ const arrayToString = (arr) => {
   }
   return res.substring(0, res.length - 2);
 };
-
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%"
+  }
+}
 export default function ProjectCard(props) {
   const proj = props.project;
 
@@ -55,7 +62,7 @@ export default function ProjectCard(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "20%", maxWidth: "40%" }}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0.5rem 1rem 0.5rem",

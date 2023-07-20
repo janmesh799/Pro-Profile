@@ -4,7 +4,15 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%",
+    margin:"0.5rem"
+  }
+}
 const SocialCards = (props) => {
   const socials = props.socials;
   return (
@@ -111,7 +119,7 @@ const SingleComponent = (props) => {
     </CardContent>
   );
   return (
-    <Box sx={{ minWidth: "25%", maxWidth: "100%", margin: "0.5rem" }}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",

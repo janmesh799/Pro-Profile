@@ -8,7 +8,14 @@ import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAchievement } from "../../../store/profile/profileSlice";
 import EditAchievementModal from "./EditAchievementModal";
-
+const style ={
+  boxStyle:{
+    '@media (max-width:480px)':{
+     width:"80%"
+    },
+    width:"35%"
+  }
+}
 export default function AchievementCardComponent(props) {
   const achieve = props.achievement;
   const dispatch = useDispatch();
@@ -49,7 +56,7 @@ export default function AchievementCardComponent(props) {
     </>
   );
   return (
-    <Box sx={{ minWidth: "30%", maxWidth: "45%" }}>
+    <Box sx={style.boxStyle}>
       <Card
         sx={{
           margin: "1rem 0rem 1rem 0rem",
