@@ -38,6 +38,7 @@ export const getProfile = createAsyncThunk(
   }
 );
 
+
 export const addEducation = createAsyncThunk(
   "profile/addEducation",
   async ({ education, authToken }, thunkAPI) => {

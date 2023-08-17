@@ -334,7 +334,7 @@ const profileService = {
   editSkills,
   editAchievement,
   editSocials,
-  editBio
+  editBio,
 };
 
 export default profileService;

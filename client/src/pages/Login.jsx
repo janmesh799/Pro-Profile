@@ -16,7 +16,7 @@ const style = {
         flexDirection: "column"
     },
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginTop: "8vw"
 }
 const textFieldStyle = {
