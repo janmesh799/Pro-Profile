@@ -20,6 +20,7 @@ const editAchievement = require("./profile/editAchievement");
 const deleteAchievement = require("./profile/deleteAchievement");
 const editSocials = require("./profile/editSocials");
 const editBio = require("./profile/editBio");
+const getRandomProfile = require("./profile/getRandomProfile");
 
 // @Route: POST /api/profile/createProfile
 // @Desc: Create a new profile
@@ -128,5 +129,7 @@ router.put("/editSocials", fetchUser, editSocials);
 //@Access: private
 //@data: headers({authToken}), body({bio})
 router.put("/editBio", fetchUser, editBio);
+
+router.get("/getRandomProfile", getRandomProfile);
 
 module.exports = router;
